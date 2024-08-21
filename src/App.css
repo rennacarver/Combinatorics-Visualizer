@@ -1,3 +1,64 @@
 #root {
   
 }
+
+div {
+    /* border: solid white 0.5px; */
+}
+
+.top-padding {
+    padding: 10px 20px 10px 20px;
+}
+
+.top-bar {
+    height: 100px;
+    display: flex;
+}
+
+.flex-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notation {
+    width: 20%;
+}
+
+.formula {
+    width: 20%;
+}
+
+.slots {
+    width: 80%;
+}
+
+.sub {
+    vertical-align: sub;
+}
+
+div>h2 {
+    margin: auto;
+}
+
+/* Formula */
+
+table {
+    border-collapse: collapse;
+  }
+  
+  tr:first-child {
+    border-bottom: 1pt solid white;
+  }
+
+  td {
+    font-size: 30px;
+    text-align: center;
+    vertical-align: center;
+  }
+
+  /* Slots */
+
+  .slots {
+    font-size: 65px;
+  }
