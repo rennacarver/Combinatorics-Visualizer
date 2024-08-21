@@ -1,9 +1,13 @@
-#root {
+/* #root {
   
 }
 
 div {
-    /* border: solid white 0.5px; */
+    border: solid white 0.5px;
+} */
+
+.flex {
+    display: flex;
 }
 
 .top-padding {
@@ -12,12 +16,14 @@ div {
 
 .top-bar {
     height: 100px;
-    display: flex;
 }
 
 .flex-centered {
-    display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.flex-align-center {
     align-items: center;
 }
 
@@ -25,7 +31,15 @@ div {
     width: 20%;
 }
 
+.notation>h2 {
+    font-family: "Noto Sans Math", sans-serif;
+    font-size: 65px;
+}
+
 .formula {
+    font-family: "Noto Sans Math", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     width: 20%;
 }
 
@@ -35,6 +49,7 @@ div {
 
 .sub {
     vertical-align: sub;
+    font-size: 45px;
 }
 
 div>h2 {
@@ -61,4 +76,20 @@ table {
 
   .slots {
     font-size: 65px;
+  }
+
+  /* Form */
+  form {
+    display: inline;
+  }
+
+  input {
+    margin-left: 30px;
+    background-color: #4b4963;
+    border: solid 1px #12111e;
+    color: white;
+    height: 40px;
+    font-size: 25px;
+    border-radius: 10px;
+    padding-left: 10px;
   }
