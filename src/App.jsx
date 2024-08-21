@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      
+      <h1>Linear Combinatorics Visualizer</h1>
     </>
   )
 }
