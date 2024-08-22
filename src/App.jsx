@@ -20,28 +20,18 @@ function App() {
   const prevColorsRef = useRef([]);
 
   //Handler functions
-  const handleChange = event => {
-     
-    setUserString(event.target.value)
-    //currentColorsRef.current.push(randomColorPoolRef.current.pop())
-    // console.log('-----------------------------')
-    // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
-    // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
-    // console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
-  }
+  const handleChange = event => setUserString(event.target.value)
 
   useEffect(() => {
-    //randomColorArray = colorArray.sort((a, b) => 0.5 - Math.random())
-
     //Set previous state and set current state to latest input
-    console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
-    console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
+    //console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
+    //console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
     prevColorsRef.current = [...currentColorsRef.current]
     currentColorsRef.current = []
     prevStringArrayRef.current = currentStringArrayRef.current
     currentStringArrayRef.current = userString.split('')
-    console.log(`prevStringArrayRef = ${prevStringArrayRef.current}`)
-    console.log(`currentStringArrayRef = ${currentStringArrayRef.current}`)
+    //console.log(`prevStringArrayRef = ${prevStringArrayRef.current}`)
+    //console.log(`currentStringArrayRef = ${currentStringArrayRef.current}`)
 
     //if input is empty, randomize the color array
     if(userString.length === 0) {
@@ -50,16 +40,16 @@ function App() {
 
     for (let i=0; i<userString.length; i++){
       if (currentStringArrayRef.current[i] === prevStringArrayRef.current[i]){
-        console.log(`the ${i} element is the same as last time!`)
+        //console.log(`the ${i} element is the same as last time!`)
         currentColorsRef.current.push(prevColorsRef.current[i])
       } else{
-        console.log(`the ${i} element is the different from last time!`)
+        //console.log(`the ${i} element is the different from last time!`)
         if(prevColorsRef.current[i]){
           randomColorPoolRef.current.push(prevColorsRef.current[i])
-          console.log('unused color pushed back to pool')
+          //console.log('unused color pushed back to pool')
         }
         randomColorPoolRef.current = randomizeArray(randomColorPoolRef.current)
-        console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
+        //console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
         currentColorsRef.current.push(randomColorPoolRef.current.pop())
       }
     }
@@ -67,14 +57,14 @@ function App() {
     //if new input is shorter than old output, release those colors back into the pool
     for (let k = currentColorsRef.current.length; k<prevColorsRef.current.length; k++){
       randomColorPoolRef.current.push(prevColorsRef.current[k])
-      console.log(`pushing ${prevColorsRef.current[k]} back into the pool`)
-      console.log(`k=${k}`)
+      //console.log(`pushing ${prevColorsRef.current[k]} back into the pool`)
+      //console.log(`k=${k}`)
     }
 
-    console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
-    console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
-    console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
-    console.log('-----------------------------')
+    // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
+    // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
+    // console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
+    // console.log('-----------------------------')
 
   }, [userString])
 
@@ -109,16 +99,46 @@ function App() {
           </div>
 
           <div className='slots flex-centered flex'>
-            <Slot value={userString.slice('')[0] ? userString.slice('')[0].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[1] ? userString.slice('')[1].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[2] ? userString.slice('')[2].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[3] ? userString.slice('')[3].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[4] ? userString.slice('')[4].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[5] ? userString.slice('')[5].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[6] ? userString.slice('')[6].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[7] ? userString.slice('')[7].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[8] ? userString.slice('')[8].toUpperCase() : ''}></Slot>
-            <Slot value={userString.slice('')[9] ? userString.slice('')[9].toUpperCase() : ''}></Slot>
+            <Slot 
+              value={userString.slice('')[0] ? userString.slice('')[0].toUpperCase() : ''}
+              color={currentColorsRef.current[0] ? currentColorsRef.current[0] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[1] ? userString.slice('')[1].toUpperCase() : ''}
+              color={currentColorsRef.current[1] ? currentColorsRef.current[1] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[2] ? userString.slice('')[2].toUpperCase() : ''}
+              color={currentColorsRef.current[2] ? currentColorsRef.current[2] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[3] ? userString.slice('')[3].toUpperCase() : ''}
+              color={currentColorsRef.current[3] ? currentColorsRef.current[3] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[4] ? userString.slice('')[4].toUpperCase() : ''}
+              color={currentColorsRef.current[4] ? currentColorsRef.current[4] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[5] ? userString.slice('')[5].toUpperCase() : ''}
+              color={currentColorsRef.current[5] ? currentColorsRef.current[5] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[6] ? userString.slice('')[6].toUpperCase() : ''}
+              color={currentColorsRef.current[6] ? currentColorsRef.current[6] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[7] ? userString.slice('')[7].toUpperCase() : ''}
+              color={currentColorsRef.current[7] ? currentColorsRef.current[7] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[8] ? userString.slice('')[8].toUpperCase() : ''}
+              color={currentColorsRef.current[8] ? currentColorsRef.current[8] : ''}
+            />
+            <Slot 
+              value={userString.slice('')[9] ? userString.slice('')[9].toUpperCase() : ''}
+              color={currentColorsRef.current[9] ? currentColorsRef.current[9] : ''}
+            />
             
           </div>
 

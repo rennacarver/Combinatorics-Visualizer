@@ -1,10 +1,6 @@
-/* #root {
-  
+.small {
+    font-size: 10px;
 }
-
-div {
-    border: solid white 0.5px;
-} */
 
 .flex {
     display: flex;
