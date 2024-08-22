@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Slot from './components/Slot/Slot';
+import Permutation from './components/Permutation/Permutation';
 
 function App() {
   const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA'] 
@@ -69,9 +70,9 @@ function App() {
       //console.log(`k=${k}`)
     }
 
-    setstringColors([...currentColorsRef.current])
     permutationsRef.current = generatePermutations(userString)
     console.log(permutationsRef.current)
+    setstringColors([...currentColorsRef.current])
 
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
     // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
@@ -209,6 +210,12 @@ function App() {
 
           </div> {/*  top-bar */}
       </div>  {/*  top-padding */}
+
+      <div className='top-padding'>
+            {permutationsRef.current.map((permutation, index) => (
+              <Permutation key={index} value={permutation} />
+            ))}
+      </div> {/*  top-padding */}
     </>
   )
 }
