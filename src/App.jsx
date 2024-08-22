@@ -4,24 +4,23 @@ import Slot from './components/Slot/Slot';
 
 function App() {
   const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA'] 
-  const randomColorArray = [...randomizeArray(colorArray)]
+  const randomColorArray = randomizeArray(colorArray)
+  const randomColorPoolRef = useRef(randomColorArray)
 
-  //Current data
+  //STATES
+  const [userString, setUserString] = useState('');
+
+  //REFS
+  //Current ref
   const currentStringArrayRef = useRef([])
   const currentColorsRef = useRef([]);
 
-  //Previous data
+  //Previous ref
   const prevStringArrayRef = useRef([])
   const prevColorsRef = useRef([]);
 
-  const randomColorPoolRef = useRef(randomColorArray)
-  
-  
-  
-
-  const [userString, setUserString] = useState('');
+  //Handler functions
   const handleChange = event => {
-    
      
     setUserString(event.target.value)
     //currentColorsRef.current.push(randomColorPoolRef.current.pop())
@@ -59,7 +58,7 @@ function App() {
           randomColorPoolRef.current.push(prevColorsRef.current[i])
           console.log('unused color pushed back to pool')
         }
-        randomColorPoolRef.current = [...randomizeArray(randomColorPoolRef.current)]
+        randomColorPoolRef.current = randomizeArray(randomColorPoolRef.current)
         console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
         currentColorsRef.current.push(randomColorPoolRef.current.pop())
       }
