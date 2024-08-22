@@ -5,7 +5,7 @@ const Permutation = ({value}) => {
 
     return (
         <>
-            <div className='flex-start flex-column border'>
+            <div className='flex-start flex-row border permutation'>
                 {value}
             </div>
         </>

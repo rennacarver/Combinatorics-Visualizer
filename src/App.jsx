@@ -71,7 +71,6 @@ function App() {
     }
 
     permutationsRef.current = generatePermutations(userString)
-    console.log(permutationsRef.current)
     setstringColors([...currentColorsRef.current])
 
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
@@ -211,7 +210,7 @@ function App() {
           </div> {/*  top-bar */}
       </div>  {/*  top-padding */}
 
-      <div className='top-padding'>
+      <div className='bottom-padding border flex flex-wrap'>
             {permutationsRef.current.map((permutation, index) => (
               <Permutation key={index} value={permutation} />
             ))}

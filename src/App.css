@@ -21,6 +21,11 @@
     height: 100px;
 }
 
+div.bottom-padding {
+    padding: 50px;
+    
+}
+
 /* Display Flex */
 .flex-centered {
     justify-content: center;
@@ -37,6 +42,10 @@
 
 .flex-column {
     flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
 }
 
 .notation {
