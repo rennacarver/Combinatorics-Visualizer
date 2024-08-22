@@ -4,7 +4,7 @@ import Slot from './components/Slot/Slot';
 
 function App() {
   const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA'] 
-  const randomColorArray = colorArray.sort((a, b) => 0.5 - Math.random())
+  const randomColorArray = [...randomizeArray(colorArray)]
 
   //Current data
   const currentStringArrayRef = useRef([])
@@ -14,7 +14,7 @@ function App() {
   const prevStringArrayRef = useRef([])
   const prevColorsRef = useRef([]);
 
-  const randomColorArrayRef = useRef(randomColorArray)
+  const randomColorPoolRef = useRef(randomColorArray)
   
   
   
@@ -24,11 +24,11 @@ function App() {
     
      
     setUserString(event.target.value)
-    //currentColorsRef.current.push(randomColorArrayRef.current.pop())
+    //currentColorsRef.current.push(randomColorPoolRef.current.pop())
     // console.log('-----------------------------')
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
     // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
-    // console.log(`randomColorArrayRef.current = ${randomColorArrayRef.current}`)
+    // console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
   }
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function App() {
 
     //if input is empty, randomize the color array
     if(userString.length === 0) {
-      randomColorArrayRef.current = randomColorArray
+      randomColorPoolRef.current = randomColorArray
     }
 
     for (let i=0; i<userString.length; i++){
@@ -56,19 +56,32 @@ function App() {
       } else{
         console.log(`the ${i} element is the different from last time!`)
         if(prevColorsRef.current[i]){
-          randomColorArrayRef.current.push(prevColorsRef.current[i])
-          console.log('unused color pushed back to randomcolorarray')
+          randomColorPoolRef.current.push(prevColorsRef.current[i])
+          console.log('unused color pushed back to pool')
         }
-          
-        currentColorsRef.current.push(randomColorArrayRef.current.pop())
+        randomColorPoolRef.current = [...randomizeArray(randomColorPoolRef.current)]
+        console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
+        currentColorsRef.current.push(randomColorPoolRef.current.pop())
       }
     }
+
+    //if new input is shorter than old output, release those colors back into the pool
+    for (let k = currentColorsRef.current.length; k<prevColorsRef.current.length; k++){
+      randomColorPoolRef.current.push(prevColorsRef.current[k])
+      console.log(`pushing ${prevColorsRef.current[k]} back into the pool`)
+      console.log(`k=${k}`)
+    }
+
     console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
     console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
-    console.log(`randomColorArrayRef.current = ${randomColorArrayRef.current}`)
+    console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
     console.log('-----------------------------')
 
   }, [userString])
+
+  function randomizeArray (array) {
+    return [...array].sort((a, b) => 0.5 - Math.random())
+  }
 
   return (
     <>
