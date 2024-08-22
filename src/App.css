@@ -23,6 +23,10 @@
     align-items: center;
 }
 
+.flex-start {
+    justify-content: flex-start;
+}
+
 .notation {
     width: 20%;
 }
@@ -56,30 +60,47 @@ div>h2 {
 
 table {
     border-collapse: collapse;
-  }
+}
   
-  tr:first-child {
+tr:first-child {
     border-bottom: 1pt solid white;
-  }
+}
 
-  td {
+td {
     font-size: 30px;
     text-align: center;
     vertical-align: center;
-  }
+}
 
-  /* Slots */
+/* Slots */
 
-  .slots {
+tr.slot-letter:first-child {
+    border-bottom: 3pt solid white;
+}
+
+.slots {
     font-size: 65px;
-  }
+}
 
-  /* Form */
-  form {
+td.slot-letter {
+    font-size: 65px;
+    width: 100%;
+}
+
+div.slot-letter {
+    width: 10%
+}
+
+.slot-table {
+    width: 100%;
+}
+
+/* Form */
+    form {
     display: inline;
-  }
+}
 
-  input {
+input {
     margin-left: 30px;
     background-color: #4b4963;
     border: solid 1px #12111e;
@@ -88,4 +109,4 @@ table {
     font-size: 25px;
     border-radius: 10px;
     padding-left: 10px;
-  }
+}

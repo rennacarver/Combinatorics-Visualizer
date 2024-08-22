@@ -9,6 +9,7 @@ function App() {
 
   //STATES
   const [userString, setUserString] = useState('');
+  const [stringColors, setstringColors] = useState([]);
 
   //REFS
   //Current ref
@@ -61,6 +62,8 @@ function App() {
       //console.log(`k=${k}`)
     }
 
+    setstringColors([...currentColorsRef.current])
+
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
     // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
     // console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
@@ -98,47 +101,76 @@ function App() {
             </table>
           </div>
 
-          <div className='slots flex-centered flex'>
+          <div className='slots flex-start flex'>
+            {userString[0] ? 
             <Slot 
               value={userString.slice('')[0] ? userString.slice('')[0].toUpperCase() : ''}
-              color={currentColorsRef.current[0] ? currentColorsRef.current[0] : ''}
+              color={stringColors[0] ? stringColors[0] : ''}
             />
+            : ""}
+
+            {userString[1] ? 
             <Slot 
               value={userString.slice('')[1] ? userString.slice('')[1].toUpperCase() : ''}
-              color={currentColorsRef.current[1] ? currentColorsRef.current[1] : ''}
+              color={stringColors[1] ? stringColors[1] : ''}
             />
+            : ""}
+
+            {userString[2] ? 
             <Slot 
               value={userString.slice('')[2] ? userString.slice('')[2].toUpperCase() : ''}
-              color={currentColorsRef.current[2] ? currentColorsRef.current[2] : ''}
+              color={stringColors[2] ? stringColors[2] : ''}
             />
+            : ""}
+
+            {userString[3] ? 
             <Slot 
               value={userString.slice('')[3] ? userString.slice('')[3].toUpperCase() : ''}
-              color={currentColorsRef.current[3] ? currentColorsRef.current[3] : ''}
+              color={stringColors[3] ? stringColors[3] : ''}
             />
+            : ""}
+
+            {userString[4] ?
             <Slot 
               value={userString.slice('')[4] ? userString.slice('')[4].toUpperCase() : ''}
-              color={currentColorsRef.current[4] ? currentColorsRef.current[4] : ''}
+              color={stringColors[4] ? stringColors[4] : ''}
             />
+            : ""}
+
+            {userString[5] ?
             <Slot 
               value={userString.slice('')[5] ? userString.slice('')[5].toUpperCase() : ''}
-              color={currentColorsRef.current[5] ? currentColorsRef.current[5] : ''}
+              color={stringColors[5] ? stringColors[5] : ''}
             />
+            : ""}
+
+            {userString[6] ?
             <Slot 
               value={userString.slice('')[6] ? userString.slice('')[6].toUpperCase() : ''}
-              color={currentColorsRef.current[6] ? currentColorsRef.current[6] : ''}
+              color={stringColors[6] ? stringColors[6] : ''}
             />
+            : ""}
+
+            {userString[7] ?
             <Slot 
               value={userString.slice('')[7] ? userString.slice('')[7].toUpperCase() : ''}
-              color={currentColorsRef.current[7] ? currentColorsRef.current[7] : ''}
+              color={stringColors[7] ? stringColors[7] : ''}
             />
+            : ""}
+
+            {userString[8] ?
             <Slot 
               value={userString.slice('')[8] ? userString.slice('')[8].toUpperCase() : ''}
-              color={currentColorsRef.current[8] ? currentColorsRef.current[8] : ''}
+              color={stringColors[8] ? stringColors[8] : ''}
             />
+            : ""}
+
+            {userString[9] ?
             <Slot 
               value={userString.slice('')[9] ? userString.slice('')[9].toUpperCase() : ''}
-              color={currentColorsRef.current[9] ? currentColorsRef.current[9] : ''}
+              color={stringColors[9] ? stringColors[9] : ''}
             />
+            : ""}
             
           </div>
 
