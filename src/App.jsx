@@ -1,18 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Slot from './components/Slot/Slot';
 
 function App() {
-  const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EA4499', '#831ADE', '#994100', '#B61D1D', '#FFFFFF']
-  let randomColorArray = colorArray.sort((a, b) => 0.5 - Math.random())
-
-  const [string, setString] = useState('');
-  const handleChange = event => setString(event.target.value)
+  const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA']
+  const randomColorArrayRef = useRef(colorArray.sort((a, b) => 0.5 - Math.random()))
+  const stringArrayRef = useRef([])
+  const currentColorsRef = useRef([]);
   
 
+  const [string, setString] = useState('');
+  const handleChange = event => {
+    
+     
+    setString(event.target.value)
+    //currentColorsRef.current.push(randomColorArrayRef.current.pop())
+    console.log(`currentColors = ${currentColorsRef.current}`)
+    console.log(`randomColorArray = ${randomColorArrayRef.current}`)
+  }
+
   useEffect(() => {
-    console.log(string.slice('')[0])
-  })
+    //randomColorArray = colorArray.sort((a, b) => 0.5 - Math.random())
+    stringArrayRef.current = string.split('')
+    console.log(`stringArrayRef = ${stringArrayRef.current}`)
+  }, [string])
 
   return (
     <>
