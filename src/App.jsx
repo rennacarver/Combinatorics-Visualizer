@@ -13,6 +13,9 @@ function App() {
   const [stringColors, setstringColors] = useState([]);
 
   //REFS
+  //permutations ref
+  const permutationsRef = useRef([])
+
   //Current ref
   const currentStringArrayRef = useRef([])
   const currentColorsRef = useRef([]);
@@ -67,6 +70,8 @@ function App() {
     }
 
     setstringColors([...currentColorsRef.current])
+    permutationsRef.current = generatePermutations(userString)
+    console.log(permutationsRef.current)
 
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
     // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
@@ -79,6 +84,30 @@ function App() {
     return [...array].sort((a, b) => 0.5 - Math.random())
   }
 
+  function generatePermutations(str) {
+    const permutations = []
+    function permute(str, left, right) {
+        if (left == right) {
+            permutations.push(str)
+        } else {
+            for (let i = left; i <= right; i++) {
+                str = swap(str, left, i)
+                permute(str, left + 1, right)
+                str = swap(str, left, i)
+            }
+        }
+    }
+    function swap(a, i, j) {
+        const charArray = a.split("")
+        const temp = charArray[i]
+        charArray[i] = charArray[j]
+        charArray[j] = temp
+        return charArray.join("")
+    }
+    permute(str, 0, str.length - 1)
+    return permutations
+  }
+
   return (
     <>
       <div className='top-padding'>
@@ -87,7 +116,7 @@ function App() {
           <h1>Linear Combinatorics Visualizer</h1>
           <form>
               <label htmlFor="userString"></label>
-              <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='10'/>
+              <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='8'/>
           </form>
         </div>
 
