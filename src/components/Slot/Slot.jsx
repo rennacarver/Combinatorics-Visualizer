@@ -11,7 +11,7 @@ const Slot = ({value, color}) => {
                 <table className='slot-table'>
                     <tbody>
                     <tr className='slot-letter'><td className='slot-letter' style={{color: thisColor}}>{value}</td></tr>
-                    {/* <tr><td className='small' style={{color: thisColor}}>{color}</td></tr> */}
+                    <tr><td className='small' style={{color: thisColor}}>{color}</td></tr>
                     </tbody>
                 </table>
             </div>

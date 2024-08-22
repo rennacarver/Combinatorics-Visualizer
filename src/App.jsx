@@ -9,6 +9,7 @@ function App() {
 
   //STATES
   const [userString, setUserString] = useState('');
+  const [numSlots, setNumSlots] = useState(0);
   const [stringColors, setstringColors] = useState([]);
 
   //REFS
@@ -21,7 +22,10 @@ function App() {
   const prevColorsRef = useRef([]);
 
   //Handler functions
-  const handleChange = event => setUserString(event.target.value)
+  const handleChange = event => {
+    setUserString(event.target.value)
+    setNumSlots(event.target.value.length)
+  }
 
   useEffect(() => {
     //Set previous state and set current state to latest input
@@ -89,14 +93,14 @@ function App() {
 
         <div className='top-bar flex'>
           <div className='notation flex-centered flex'>
-            <h2><span className='sub'>n </span>P<span className='sub'>r</span></h2>
+            <h2><span className='sub'>{numSlots === 0 ? 'n' : numSlots} </span>P<span className='sub'>r</span></h2>
           </div>
 
           <div className='formula flex-centered flex'>
             <table>
               <tbody>
-                <tr><td>n!</td></tr>
-                <tr><td>(n - r)!</td></tr>
+                <tr><td>{numSlots === 0 ? 'n' : numSlots}!</td></tr>
+                <tr><td>({numSlots === 0 ? 'n' : numSlots} - r)!</td></tr>
               </tbody>
             </table>
           </div>
