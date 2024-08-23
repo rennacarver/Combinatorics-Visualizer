@@ -8,9 +8,7 @@
  - Try: '你們好', 'test', '+-=+', '♡♠♦♣'
 
 ## Lessons Learned
- - Started learning the fundamentals of Grid CSS
- - If debugging is taking too long, there is a more efficient method
- - A finished MVP is better than an unfinished product with more features
+ - 
 
 ## Fixes Needed
  - Color selector needs to be rewritten
