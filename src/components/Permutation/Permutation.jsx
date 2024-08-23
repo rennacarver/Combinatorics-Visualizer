@@ -4,7 +4,7 @@ import PermutationUnit from '../PermutationUnit/PermutationUnit'
 
 const Permutation = ({value, colorMap, stringArray, numSlots}) => {
 
-    const style = {"width" : `${80 / numSlots}%`, "fontSize" : `${15 / numSlots}vw`}
+    const style = {"width" : `${80 / numSlots}%`, "fontSize" : `${12 / numSlots}vw`}
     const permutation = value.split('')
 
     return (

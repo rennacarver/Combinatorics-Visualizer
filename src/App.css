@@ -1,7 +1,7 @@
-/* Debugging */
+/* Debugging
 .border {
     border: solid white 2px;
-}
+} */
 
 /* Debugging */
 
@@ -13,8 +13,18 @@ h1 {
 }
 
 .page-div {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
+}
+
+img {
+    height: auto;
+    width: 3vw;
+}
+
+.beta {
+    margin-left: 0.3vw;
+    font-size: 1vw;
 }
 
 /* Form */
@@ -151,6 +161,7 @@ table.slot-table {
     font-size: 3vw;
     padding: 20px;
     text-align: center;
+    flex-wrap: nowrap;
 }
 
 

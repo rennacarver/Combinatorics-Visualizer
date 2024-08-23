@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Slot from './components/Slot/Slot';
 import Permutation from './components/Permutation/Permutation';
+import logo from './assets/logo.png'
 
 function App() {
   const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA'] 
@@ -127,12 +128,17 @@ function App() {
     <>
       <div className='page-div border'>
         <div className='top-padding'>
+          
+          <div className='flex flex-start flex-align-center'>
+            <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
+            <span className='beta'>BETA</span>
+          </div>
 
           <div className='flex flex-start flex-align-center'>
             <h1>Linear Permutations Visualizer</h1>
             <form>
                 <label htmlFor="userString"></label>
-                <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='8'/>
+                <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='6'/>
             </form>
           </div>
 
