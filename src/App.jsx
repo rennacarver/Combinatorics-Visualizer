@@ -11,7 +11,7 @@ function App() {
   //STATES
   const [userString, setUserString] = useState('');
   const [numSlots, setNumSlots] = useState(0);
-  const [stringColors, setstringColors] = useState([]);
+  const [colorMap, setColorMap] = useState({});
 
   //REFS
   //permutations ref
@@ -27,7 +27,7 @@ function App() {
 
   //Handler functions
   const handleChange = event => {
-    setUserString(event.target.value)
+    setUserString(event.target.value.toUpperCase())
     setNumSlots(event.target.value.length)
   }
 
@@ -71,7 +71,23 @@ function App() {
     }
 
     permutationsRef.current = generatePermutations(userString)
-    setstringColors([...currentColorsRef.current])
+
+    //create unit-color map linking each unit to a unique color
+    let userStringArray = userString.split('')
+    let currentKey;
+    let currentVal;
+    let tempColorMap = {}
+
+    for (let i = 0; i < userStringArray.length; i++) {
+        currentKey = userStringArray[i];
+        currentVal = currentColorsRef.current[i];
+        tempColorMap[currentKey] = currentVal;    
+    }
+
+    console.log(tempColorMap)
+    console.log(tempColorMap[userStringArray[0]])
+
+    setColorMap(tempColorMap)
 
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
     // console.log(`currentColorsRef.current = ${currentColorsRef.current}`)
@@ -135,7 +151,17 @@ function App() {
           </div>
 
           <div className='slots flex-start flex'>
-            {userString[0] ? 
+
+
+            {userString.split('').map((unit, index) => (
+              <Slot 
+                key={index} 
+                value = {unit}
+                color = {colorMap[unit]}
+              />
+            ))}
+
+            {/* {userString[0] ? 
             <Slot 
               value={userString.slice('')[0] ? userString.slice('')[0].toUpperCase() : ''}
               color={stringColors[0] ? stringColors[0] : ''}
@@ -203,7 +229,7 @@ function App() {
               value={userString.slice('')[9] ? userString.slice('')[9].toUpperCase() : ''}
               color={stringColors[9] ? stringColors[9] : ''}
             />
-            : ""}
+            : ""} */}
             
           </div>
 
@@ -212,7 +238,11 @@ function App() {
 
       <div className='bottom-padding border flex flex-wrap'>
             {permutationsRef.current.map((permutation, index) => (
-              <Permutation key={index} value={permutation} />
+              <Permutation 
+                key={index} 
+                colorMap = {colorMap}
+                userString = {userString}
+                value={permutation} />
             ))}
       </div> {/*  top-padding */}
     </>
