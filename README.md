@@ -1,5 +1,7 @@
 # Combinatorics Visualizer
 
+[--LIVE Demo--](https://rennacarver.github.io/Combinations-Visualizer/)
+
 ![Linear Permutations_medium](https://github.com/user-attachments/assets/fe7b0d07-078d-46f8-96e0-18bc71d9e91b)
 
 ## Features
