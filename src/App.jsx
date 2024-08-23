@@ -84,9 +84,6 @@ function App() {
         tempColorMap[currentKey] = currentVal;    
     }
 
-    console.log(tempColorMap)
-    console.log(tempColorMap[userStringArray[0]])
-
     setColorMap(tempColorMap)
 
     // console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
@@ -96,6 +93,8 @@ function App() {
 
   }, [userString])
 
+
+  //FUNCTIONS
   function randomizeArray (array) {
     return [...array].sort((a, b) => 0.5 - Math.random())
   }
@@ -126,125 +125,59 @@ function App() {
 
   return (
     <>
-      <div className='top-padding'>
+      <div className='page-div border'>
+        <div className='top-padding'>
 
-        <div className='flex flex-start flex-align-center'>
-          <h1>Linear Combinatorics Visualizer</h1>
-          <form>
-              <label htmlFor="userString"></label>
-              <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='8'/>
-          </form>
-        </div>
-
-        <div className='top-bar flex'>
-          <div className='notation flex-centered flex'>
-            <h2><span className='sub'>{numSlots === 0 ? 'n' : numSlots} </span>P<span className='sub'>r</span></h2>
+          <div className='flex flex-start flex-align-center'>
+            <h1>Linear Permutations Visualizer</h1>
+            <form>
+                <label htmlFor="userString"></label>
+                <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='8'/>
+            </form>
           </div>
 
-          <div className='formula flex-centered flex'>
-            <table>
-              <tbody>
-                <tr><td>{numSlots === 0 ? 'n' : numSlots}!</td></tr>
-                <tr><td>({numSlots === 0 ? 'n' : numSlots} - r)!</td></tr>
-              </tbody>
-            </table>
-          </div>
+          <div className='top-bar flex'>
+            <div className='notation flex flex-align-center'>
+              <h2><span className='sub'>{numSlots === 0 ? 'n' : numSlots} </span>P<span className='sub'>{numSlots === 0 ? 'r' : numSlots}</span></h2>
+            </div>
 
-          <div className='slots flex-start flex'>
+            <div className='formula flex'>
+              <table>
+                <tbody>
+                  <tr><td>{numSlots === 0 ? 'n' : numSlots}!</td></tr>
+                  <tr><td>({numSlots === 0 ? 'n' : numSlots} - {numSlots === 0 ? 'r' : numSlots})!</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className='slots flex-start flex'>
 
 
-            {userString.split('').map((unit, index) => (
-              <Slot 
-                key={index} 
-                value = {unit}
-                color = {colorMap[unit]}
-              />
-            ))}
+              {userString.split('').map((unit, index) => (
+                <Slot 
+                  key={index} 
+                  value = {unit}
+                  color = {colorMap[unit]}
+                />
+              ))}
+              
+            </div>
 
-            {/* {userString[0] ? 
-            <Slot 
-              value={userString.slice('')[0] ? userString.slice('')[0].toUpperCase() : ''}
-              color={stringColors[0] ? stringColors[0] : ''}
-            />
-            : ""}
+            </div> {/*  top-bar */}
+          </div>  {/*  top-padding */}
 
-            {userString[1] ? 
-            <Slot 
-              value={userString.slice('')[1] ? userString.slice('')[1].toUpperCase() : ''}
-              color={stringColors[1] ? stringColors[1] : ''}
-            />
-            : ""}
+          <div className={"bottom-padding flex flex-row flex-wrap"}>
+              {permutationsRef.current.map((permutation, index) => (
+                <Permutation 
+                  key={index} 
+                  colorMap = {colorMap}
+                  userString = {userString}
+                  value={permutation}
+                  numSlots={numSlots} />
+              ))}
+          </div> 
 
-            {userString[2] ? 
-            <Slot 
-              value={userString.slice('')[2] ? userString.slice('')[2].toUpperCase() : ''}
-              color={stringColors[2] ? stringColors[2] : ''}
-            />
-            : ""}
-
-            {userString[3] ? 
-            <Slot 
-              value={userString.slice('')[3] ? userString.slice('')[3].toUpperCase() : ''}
-              color={stringColors[3] ? stringColors[3] : ''}
-            />
-            : ""}
-
-            {userString[4] ?
-            <Slot 
-              value={userString.slice('')[4] ? userString.slice('')[4].toUpperCase() : ''}
-              color={stringColors[4] ? stringColors[4] : ''}
-            />
-            : ""}
-
-            {userString[5] ?
-            <Slot 
-              value={userString.slice('')[5] ? userString.slice('')[5].toUpperCase() : ''}
-              color={stringColors[5] ? stringColors[5] : ''}
-            />
-            : ""}
-
-            {userString[6] ?
-            <Slot 
-              value={userString.slice('')[6] ? userString.slice('')[6].toUpperCase() : ''}
-              color={stringColors[6] ? stringColors[6] : ''}
-            />
-            : ""}
-
-            {userString[7] ?
-            <Slot 
-              value={userString.slice('')[7] ? userString.slice('')[7].toUpperCase() : ''}
-              color={stringColors[7] ? stringColors[7] : ''}
-            />
-            : ""}
-
-            {userString[8] ?
-            <Slot 
-              value={userString.slice('')[8] ? userString.slice('')[8].toUpperCase() : ''}
-              color={stringColors[8] ? stringColors[8] : ''}
-            />
-            : ""}
-
-            {userString[9] ?
-            <Slot 
-              value={userString.slice('')[9] ? userString.slice('')[9].toUpperCase() : ''}
-              color={stringColors[9] ? stringColors[9] : ''}
-            />
-            : ""} */}
-            
-          </div>
-
-          </div> {/*  top-bar */}
-      </div>  {/*  top-padding */}
-
-      <div className='bottom-padding border flex flex-wrap'>
-            {permutationsRef.current.map((permutation, index) => (
-              <Permutation 
-                key={index} 
-                colorMap = {colorMap}
-                userString = {userString}
-                value={permutation} />
-            ))}
-      </div> {/*  top-padding */}
+      </div> {/* div-page */}
     </>
   )
 }

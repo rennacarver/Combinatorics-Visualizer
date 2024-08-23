@@ -5,6 +5,34 @@
 
 /* Debugging */
 
+/* HEADER */
+h1 {
+    font-size: 3vw;
+    margin-right: 30px;
+    font-weight: 200;
+}
+
+.page-div {
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Form */
+form {
+    display: inline;
+}
+
+input {
+    background-color: #4b4963;
+    border: solid 1px #12111e;
+    color: white;
+    height: 3.5vw;
+    font-size: 2.5vw;
+    border-radius: 0.5vw;
+    padding-left: 10px;
+    width: 20vw;
+}
+
 .small {
     font-size: 10px;
 }
@@ -24,6 +52,13 @@
 div.bottom-padding {
     padding: 50px;
     
+}
+
+/* Display Grid */
+.grid {
+    display: grid;
+    grid-template-columns:
+      repeat(3, 1fr);
 }
 
 /* Display Flex */
@@ -54,12 +89,11 @@ div.bottom-padding {
 
 .notation>h2 {
     font-family: "Noto Sans Math", sans-serif;
-    font-size: 65px;
+    font-size: 5vw;
 }
 
 .formula {
     font-family: "Noto Sans Math", sans-serif;
-    font-weight: 400;
     font-style: normal;
     width: 20%;
 }
@@ -70,11 +104,7 @@ div.bottom-padding {
 
 .sub {
     vertical-align: sub;
-    font-size: 45px;
-}
-
-div>h2 {
-    margin: auto;
+    font-size: 3vw;
 }
 
 /* Formula */
@@ -88,7 +118,7 @@ tr:first-child {
 }
 
 td {
-    font-size: 30px;
+    font-size: 2.25vw;
     text-align: center;
     vertical-align: center;
 }
@@ -96,15 +126,15 @@ td {
 /* Slots */
 
 tr.slot-letter:first-child {
-    border-bottom: 3pt solid white;
+    border-bottom: 0.4vw solid white;
 }
 
 .slots {
-    font-size: 65px;
+    font-size: 3vw;
 }
 
 td.slot-letter {
-    font-size: 65px;
+    font-size: 4.5vw;
     width: 100%;
 }
 
@@ -116,18 +146,42 @@ table.slot-table {
     width: 100%;
 }
 
-/* Form */
-    form {
-    display: inline;
+/* Permutation */
+.permutation {
+    font-size: 3vw;
+    padding: 20px;
+    text-align: center;
 }
 
-input {
-    margin-left: 30px;
-    background-color: #4b4963;
-    border: solid 1px #12111e;
-    color: white;
-    height: 40px;
-    font-size: 25px;
-    border-radius: 10px;
-    padding-left: 10px;
+
+/* Permutation Unit */
+.permutation-unit {
+    
+}
+
+/* Desktop */
+@media screen and (min-width: 1200px) {
+    h1 {
+       font-size: 36px;
+    }
+    input {
+        font-size: 30px;
+        width: 240px;
+        height: 45px;
+    }
+    .notation>h2 {
+        font-size: 60px;
+    }
+    .sub {
+        vertical-align: sub;
+        font-size: 38px;
+    }
+    td {
+        font-size: 28px;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 400px) {
+    
 }

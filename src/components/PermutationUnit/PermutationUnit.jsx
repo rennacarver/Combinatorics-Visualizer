@@ -7,14 +7,7 @@ const PermutationUnit = ({value, color}) => {
 
     return (
         <>
-            <div className='flex top-padding slot-letter'>
-                <table className='slot-table'>
-                    <tbody>
-                    <tr className='slot-letter'><td className='slot-letter' style={{color: thisColor}}>{value}</td></tr>
-                    {/* <tr><td className='small' style={{color: thisColor}}>{color}</td></tr> */}
-                    </tbody>
-                </table>
-            </div>
+            <span className='permutation-unit' style={{color: thisColor}}>{value}</span>
         </>
     )
 }

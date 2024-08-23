@@ -2,16 +2,14 @@ import React from 'react'
 import './Permutation.css'
 import PermutationUnit from '../PermutationUnit/PermutationUnit'
 
-const Permutation = ({value, colorMap, stringArray}) => {
+const Permutation = ({value, colorMap, stringArray, numSlots}) => {
 
+    const style = {"width" : `${80 / numSlots}%`, "fontSize" : `${15 / numSlots}vw`}
     const permutation = value.split('')
-    const thisColorMap = colorMap
-    const thisStringArray = stringArray
-    let unitColor = ''
 
     return (
         <>
-            <div className='flex-start flex-row border permutation'>
+            <div className='permutation' style={style}>
                 {permutation.map((permutationUnit, index) => (
                     <PermutationUnit key={index} value={permutationUnit} color={colorMap[permutationUnit]} />
                 ))}
