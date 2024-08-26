@@ -3,7 +3,7 @@
     --text-primary-light: #292838;
     --text-primary-dark: white;
 
-    --text-secondary-light: rgb(70, 70, 70);
+    --text-secondary-light: rgb(196, 196, 196);
     --text-secondary-dark: rgb(160, 160, 160);
 
     --bg-primary-light: white;
@@ -31,6 +31,7 @@
   
   .dark-theme {
     --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
     --bg-primary: var(--bg-primary-dark);
     --bg-secondary: var(--bg-secondary-dark);
     --bg-border: var(var(--bg-border-dark));
@@ -40,6 +41,7 @@
   
   .light-theme {
     --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
     --bg-primary: var(--bg-primary-light);
     --bg-secondary: var(--bg-secondary-light);
     --bg-border: var(var(--bg-border-light));
@@ -107,6 +109,14 @@ input {
 
 .top-bar {
     height: 100px;
+}
+
+.logo-div {
+    margin-top: 2vw;
+}
+
+.title-div {
+    margin-bottom: 1vw;
 }
 
 div.bottom-padding {
@@ -186,7 +196,7 @@ td {
 /* Slots */
 
 tr.slot-letter:first-child {
-    border-bottom: 0.4vw solid var(--text-primary);
+    border-bottom: 0.3vw solid var(--text-secondary);
 }
 
 .slots {

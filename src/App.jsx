@@ -9,14 +9,22 @@ import NightModeButton from './components/NightModeButton/NightModeButton'
 
 function App() {
   const { theme } = useContext(ThemeContext)
-  const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA'] 
-  const randomColorArray = randomizeArray(colorArray)
-  const randomColorPoolRef = useRef(randomColorArray)
+  const lightColorArray = ['#EC6769', '#80D361', '#4498C3', '#D3B461', '##EB7814', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#44C3AE']
+  const darkColorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA']
 
   //STATES
+  const [colorArrayState, setColorArrayState] = useState(
+    theme === 'dark-theme'
+      ? darkColorArray
+      : lightColorArray
+  )
   const [userString, setUserString] = useState('')
   const [numSlots, setNumSlots] = useState(0)
   const [colorMap, setColorMap] = useState({})
+
+  //Initialize random color array
+  const randomColorArray = randomizeArray(colorArrayState)
+  const randomColorPoolRef = useRef(randomColorArray)
 
   //REFS
   //permutations ref
@@ -35,6 +43,14 @@ function App() {
     setUserString(event.target.value.toUpperCase())
     setNumSlots(event.target.value.length)
   }
+
+  //Change color array when dark mode is toggled
+  useEffect(() => {
+    if (theme === 'dark-theme')
+      setColorArrayState(darkColorArray)
+    else
+      setColorArrayState(lightColorArray)
+  }, [theme])
 
   //Random Color Picker
   useEffect(() => {
@@ -139,14 +155,14 @@ function App() {
 
           <div className='top-padding'>
             
-            <div className='flex flex-start flex-align-center'>
+            <div className='flex flex-start flex-align-center logo-div'>
               <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
               <span className='beta'>BETA</span>
               <div className="night-mode-button"><NightModeButton ></NightModeButton></div>
               
             </div>
 
-            <div className='flex flex-start flex-align-center'>
+            <div className='flex flex-start flex-align-center title-div'>
               <h1>Linear Permutations Visualizer</h1>
               <form>
                   <label htmlFor="userString"></label>
