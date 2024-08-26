@@ -1,18 +1,27 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
+import { ThemeContext } from './Theme'
 import './App.css'
-import Slot from './components/Slot/Slot';
-import Permutation from './components/Permutation/Permutation';
+import './index.css'
+import Slot from './components/Slot/Slot'
+import Permutation from './components/Permutation/Permutation'
 import logo from './assets/logo.png'
+import NightModeButton from './components/NightModeButton/NightModeButton'
 
 function App() {
+  const { theme } = useContext(ThemeContext)
   const colorArray = ['#EC6769', '#80D361', '#4498C3', '#FAE75F', '#F2A664', '#EC66AB', '#B461D3', '#C36F44', '#5F72FA', '#67ECEA'] 
   const randomColorArray = randomizeArray(colorArray)
   const randomColorPoolRef = useRef(randomColorArray)
 
   //STATES
-  const [userString, setUserString] = useState('');
-  const [numSlots, setNumSlots] = useState(0);
-  const [colorMap, setColorMap] = useState({});
+  const [isDarkMode, setDarkMode] = useState(
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? true
+        : false
+  )
+  const [userString, setUserString] = useState('')
+  const [numSlots, setNumSlots] = useState(0)
+  const [colorMap, setColorMap] = useState({})
 
   //REFS
   //permutations ref
@@ -20,11 +29,11 @@ function App() {
 
   //Current ref
   const currentStringArrayRef = useRef([])
-  const currentColorsRef = useRef([]);
+  const currentColorsRef = useRef([])
 
   //Previous ref
   const prevStringArrayRef = useRef([])
-  const prevColorsRef = useRef([]);
+  const prevColorsRef = useRef([])
 
   //Handler functions
   const handleChange = event => {
@@ -32,6 +41,16 @@ function App() {
     setNumSlots(event.target.value.length)
   }
 
+  const toggleDarkMode = () => {
+    setDarkMode(previous => !previous)
+  }
+
+  //Dark Mode Preference Local Storage
+  useEffect(() => {
+        console.log(`dark mode is on: ${isDarkMode}`)
+    }, [isDarkMode])
+
+  //Random Color Picker
   useEffect(() => {
     //Set previous state and set current state to latest input
     //console.log(`prevColorsRef.current = ${prevColorsRef.current}`)
@@ -126,64 +145,71 @@ function App() {
 
   return (
     <>
-      <div className='page-div border'>
-        <div className='top-padding'>
-          
-          <div className='flex flex-start flex-align-center'>
-            <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
-            <span className='beta'>BETA</span>
-          </div>
+      {/* Dark Mode Div */}
+      <div className={`App ${theme}`}>
+        <NightModeButton isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode}></NightModeButton>
 
-          <div className='flex flex-start flex-align-center'>
-            <h1>Linear Permutations Visualizer</h1>
-            <form>
-                <label htmlFor="userString"></label>
-                <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='6'/>
-            </form>
-          </div>
+        <div className='page-div border'>
 
-          <div className='top-bar flex'>
-            <div className='notation flex flex-align-center'>
-              <h2><span className='sub'>{numSlots === 0 ? 'n' : numSlots} </span>P<span className='sub'>{numSlots === 0 ? 'r' : numSlots}</span></h2>
+          <div className='top-padding'>
+            
+            <div className='flex flex-start flex-align-center'>
+              <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
+              <span className='beta'>BETA</span>
             </div>
 
-            <div className='formula flex'>
-              <table>
-                <tbody>
-                  <tr><td>{numSlots === 0 ? 'n' : numSlots}!</td></tr>
-                  <tr><td>({numSlots === 0 ? 'n' : numSlots} - {numSlots === 0 ? 'r' : numSlots})!</td></tr>
-                </tbody>
-              </table>
+            <div className='flex flex-start flex-align-center'>
+              <h1>Linear Permutations Visualizer</h1>
+              <form>
+                  <label htmlFor="userString"></label>
+                  <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='6'/>
+              </form>
             </div>
 
-            <div className='slots flex-start flex'>
+            <div className='top-bar flex'>
+              <div className='notation flex flex-align-center'>
+                <h2><span className='sub'>{numSlots === 0 ? 'n' : numSlots} </span>P<span className='sub'>{numSlots === 0 ? 'r' : numSlots}</span></h2>
+              </div>
+
+              <div className='formula flex'>
+                <table>
+                  <tbody>
+                    <tr><td>{numSlots === 0 ? 'n' : numSlots}!</td></tr>
+                    <tr><td>({numSlots === 0 ? 'n' : numSlots} - {numSlots === 0 ? 'r' : numSlots})!</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className='slots flex-start flex'>
 
 
-              {userString.split('').map((unit, index) => (
-                <Slot 
-                  key={index} 
-                  value = {unit}
-                  color = {colorMap[unit]}
-                />
-              ))}
-              
-            </div>
+                {userString.split('').map((unit, index) => (
+                  <Slot 
+                    key={index} 
+                    value = {unit}
+                    color = {colorMap[unit]}
+                  />
+                ))}
+                
+              </div>
 
-            </div> {/*  top-bar */}
-          </div>  {/*  top-padding */}
+              </div> {/*  top-bar */}
+            </div>  {/*  top-padding */}
 
-          <div className={"bottom-padding flex flex-row flex-wrap"}>
-              {permutationsRef.current.map((permutation, index) => (
-                <Permutation 
-                  key={index} 
-                  colorMap = {colorMap}
-                  userString = {userString}
-                  value={permutation}
-                  numSlots={numSlots} />
-              ))}
-          </div> 
+            <div className={"bottom-padding flex flex-row flex-wrap"}>
+                {permutationsRef.current.map((permutation, index) => (
+                  <Permutation 
+                    key={index} 
+                    colorMap = {colorMap}
+                    userString = {userString}
+                    value={permutation}
+                    numSlots={numSlots} />
+                ))}
+            </div> 
 
-      </div> {/* div-page */}
+        </div> {/* div-page */}
+      </div> {/*Dark Mode Div */}
+      
     </>
   )
 }

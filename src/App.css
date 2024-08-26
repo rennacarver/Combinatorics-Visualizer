@@ -1,9 +1,53 @@
-/* Debugging
-.border {
-    border: solid white 2px;
-} */
+:root {
+    /* Variables */
+    --text-primary-light: ##292838;
+    --text-primary-dark: white;
 
-/* Debugging */
+    --text-secondary-light: rgb(70, 70, 70);
+    --text-secondary-dark: rgb(160, 160, 160);
+
+    --bg-primary-light: white;
+    --bg-primary-dark: #292838;
+
+    --bg-secondary-light: rgb(212, 212, 212);
+    --bg-secondary-dark: #4b4963;
+  
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--light-text);
+  
+    background-color: var(--dark-bg);
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .dark-theme {
+    --text-primary: var(--text-primary-dark);
+    --bg-primary: var(--bg-primary-dark);
+    --bg-secondary: var(--bg-secondary-dark);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  
+  .light-theme {
+    --text-primary: var(--text-primary-light);
+    --bg-primary: var(--bg-primary-light);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  
+  /* @media (prefers-color-scheme: dark) {
+    :root {
+      color: white;
+      background-color: var(--dark-bg);
+    }
+  } */
+  
 
 /* HEADER */
 h1 {
@@ -33,9 +77,9 @@ form {
 }
 
 input {
-    background-color: #4b4963;
-    border: solid 1px #12111e;
-    color: white;
+    background-color: var(--bg-secondary);
+    border: solid 1px ;
+    color: var(--text-primary);
     height: 3.5vw;
     font-size: 2.5vw;
     border-radius: 0.5vw;
@@ -136,7 +180,7 @@ td {
 /* Slots */
 
 tr.slot-letter:first-child {
-    border-bottom: 0.4vw solid white;
+    border-bottom: 0.4vw solid var(--text-primary);
 }
 
 .slots {
@@ -193,6 +237,7 @@ table.slot-table {
 }
 
 /* Mobile */
-@media screen and (max-width: 400px) {
+/* @media screen and (max-width: 400px) {
     
 }
+   */
