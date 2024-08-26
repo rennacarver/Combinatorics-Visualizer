@@ -33,7 +33,7 @@
     --text-primary: var(--text-primary-dark);
     --bg-primary: var(--bg-primary-dark);
     --bg-secondary: var(--bg-secondary-dark);
-    --bg-border: var(var(--bg-border-dark))
+    --bg-border: var(var(--bg-border-dark));
     background-color: var(--bg-primary);
     color: var(--text-primary);
   }
@@ -42,7 +42,7 @@
     --text-primary: var(--text-primary-light);
     --bg-primary: var(--bg-primary-light);
     --bg-secondary: var(--bg-secondary-light);
-    --bg-border: var(var(--bg-border-light))
+    --bg-border: var(var(--bg-border-light));
     background-color: var(--bg-primary);
     color: var(--text-primary);
   }
@@ -174,7 +174,7 @@ table {
 }
   
 tr:first-child {
-    border-bottom: 1pt solid white;
+    border-bottom: 1pt solid var(--text-primary);
 }
 
 td {
