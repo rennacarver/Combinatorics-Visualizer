@@ -14,11 +14,6 @@ function App() {
   const randomColorPoolRef = useRef(randomColorArray)
 
   //STATES
-  const [isDarkMode, setDarkMode] = useState(
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? true
-        : false
-  )
   const [userString, setUserString] = useState('')
   const [numSlots, setNumSlots] = useState(0)
   const [colorMap, setColorMap] = useState({})
@@ -40,15 +35,6 @@ function App() {
     setUserString(event.target.value.toUpperCase())
     setNumSlots(event.target.value.length)
   }
-
-  const toggleDarkMode = () => {
-    setDarkMode(previous => !previous)
-  }
-
-  //Dark Mode Preference Local Storage
-  useEffect(() => {
-        console.log(`dark mode is on: ${isDarkMode}`)
-    }, [isDarkMode])
 
   //Random Color Picker
   useEffect(() => {
@@ -147,7 +133,7 @@ function App() {
     <>
       {/* Dark Mode Div */}
       <div className={`App ${theme}`}>
-        <NightModeButton isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode}></NightModeButton>
+        
 
         <div className='page-div border'>
 
@@ -156,6 +142,8 @@ function App() {
             <div className='flex flex-start flex-align-center'>
               <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
               <span className='beta'>BETA</span>
+              <div className="night-mode-button"><NightModeButton ></NightModeButton></div>
+              
             </div>
 
             <div className='flex flex-start flex-align-center'>

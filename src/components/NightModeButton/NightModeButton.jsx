@@ -4,15 +4,15 @@ import './NightModeButton.css'
 import SunIcon from '../SunIcon/SunIcon'
 import MoonIcon from '../MoonIcon/MoonIcon'
 
-const NightModeButton = ({isDarkMode, toggleDarkMode}) => {
+const NightModeButton = () => {
 
     const { theme, toggleTheme } = useContext(ThemeContext);
 
     return (
         <>
             <div onClick={() => toggleTheme()}>
-                {isDarkMode ? <MoonIcon /> : ""}
-                {isDarkMode ? "" : <SunIcon />}
+                {theme === 'dark-theme' ? <MoonIcon /> : ""}
+                {theme === 'light-theme'? <SunIcon /> : ""}
             </div>
         </>
     )

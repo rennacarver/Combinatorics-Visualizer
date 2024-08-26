@@ -1,6 +1,6 @@
 :root {
     /* Variables */
-    --text-primary-light: ##292838;
+    --text-primary-light: #292838;
     --text-primary-dark: white;
 
     --text-secondary-light: rgb(70, 70, 70);
@@ -11,6 +11,9 @@
 
     --bg-secondary-light: rgb(212, 212, 212);
     --bg-secondary-dark: #4b4963;
+
+    --bg-border-light: white;
+    --bg-border-dark: black;
   
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
@@ -30,6 +33,7 @@
     --text-primary: var(--text-primary-dark);
     --bg-primary: var(--bg-primary-dark);
     --bg-secondary: var(--bg-secondary-dark);
+    --bg-border: var(var(--bg-border-dark))
     background-color: var(--bg-primary);
     color: var(--text-primary);
   }
@@ -37,6 +41,8 @@
   .light-theme {
     --text-primary: var(--text-primary-light);
     --bg-primary: var(--bg-primary-light);
+    --bg-secondary: var(--bg-secondary-light);
+    --bg-border: var(var(--bg-border-light))
     background-color: var(--bg-primary);
     color: var(--text-primary);
   }
@@ -212,6 +218,11 @@ table.slot-table {
 /* Permutation Unit */
 .permutation-unit {
     
+}
+
+/* Night Mode Button*/
+.night-mode-button {
+    margin-left: auto;
 }
 
 /* Desktop */
