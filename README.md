@@ -10,7 +10,9 @@
  - Try: '你們好', 'test', '+-=+', '♡♠♦♣'
 
 ## Lessons Learned
- - 
+ - Enabling dark mode on the body element which is above the root element requires seperate code
+ - Font size cannot easily detect the size of it's parent container
+ - Switching between design tasks and thinking tasks is a great way to maintain momentum
 
 ## Fixes Needed
  - Color selector needs to be rewritten
