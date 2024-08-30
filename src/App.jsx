@@ -2,10 +2,11 @@ import { useState, useEffect, useRef, useContext } from 'react'
 import { ThemeContext } from './Theme'
 import './App.css'
 import './index.css'
+import logo from './assets/logo.png'
 import Slot from './components/Slot/Slot'
 import Permutation from './components/Permutation/Permutation'
-import logo from './assets/logo.png'
 import NightModeButton from './components/NightModeButton/NightModeButton'
+import {findSubsets, generatePermutations, randomizeArray} from './components/Util/helperFunctions'
 
 function App() {
   const { theme } = useContext(ThemeContext)
@@ -19,16 +20,16 @@ function App() {
       : lightColorArray
   )
   const [userString, setUserString] = useState('')
-  const [numSlots, setNumSlots] = useState(0)
+  const [nValue, setNValue] = useState(0)
+  const [rValue, setRvalue] = useState(0)
   const [colorMap, setColorMap] = useState({})
+  const [permutations, setPermutations] = useState([])
 
   //Initialize random color array
   const randomColorArray = randomizeArray(colorArrayState)
   const randomColorPoolRef = useRef(randomColorArray)
 
   //REFS
-  //permutations ref
-  const permutationsRef = useRef([])
 
   //Current ref
   const currentStringArrayRef = useRef([])
@@ -41,7 +42,7 @@ function App() {
   //Handler functions
   const handleChange = event => {
     setUserString(event.target.value.toUpperCase())
-    setNumSlots(event.target.value.length)
+    setNValue(event.target.value.length)
   }
 
   //Change color array when dark mode is toggled
@@ -92,7 +93,13 @@ function App() {
       //console.log(`k=${k}`)
     }
 
-    permutationsRef.current = generatePermutations(userString)
+    //Generate an array of arrays. Each array contains
+    let subsets = findSubsets(userString)
+    let subsetPermutations = []
+    subsets.map ( (subset) =>
+      subsetPermutations.push(...generatePermutations(subset))
+    )
+    setPermutations(subsetPermutations)
 
     //create unit-color map linking each unit to a unique color
     let userStringArray = userString.split('')
@@ -114,36 +121,6 @@ function App() {
     // console.log('-----------------------------')
 
   }, [userString])
-
-
-  //FUNCTIONS
-  function randomizeArray (array) {
-    return [...array].sort((a, b) => 0.5 - Math.random())
-  }
-
-  function generatePermutations(str) {
-    const permutations = []
-    function permute(str, left, right) {
-        if (left == right) {
-            permutations.push(str)
-        } else {
-            for (let i = left; i <= right; i++) {
-                str = swap(str, left, i)
-                permute(str, left + 1, right)
-                str = swap(str, left, i)
-            }
-        }
-    }
-    function swap(a, i, j) {
-        const charArray = a.split("")
-        const temp = charArray[i]
-        charArray[i] = charArray[j]
-        charArray[j] = temp
-        return charArray.join("")
-    }
-    permute(str, 0, str.length - 1)
-    return permutations
-  }
 
   return (
     <>
@@ -172,14 +149,14 @@ function App() {
 
             <div className='top-bar flex'>
               <div className='notation flex flex-align-center'>
-                <h2><span className='sub'>{numSlots === 0 ? 'n' : numSlots} </span>P<span className='sub'>{numSlots === 0 ? 'r' : numSlots}</span></h2>
+                <h2><span className='sub'>{nValue === 0 ? 'n' : nValue} </span>P<span className='sub'>{nValue === 0 ? 'r' : nValue}</span></h2>
               </div>
 
               <div className='formula flex'>
                 <table>
                   <tbody>
-                    <tr><td>{numSlots === 0 ? 'n' : numSlots}!</td></tr>
-                    <tr><td>({numSlots === 0 ? 'n' : numSlots} - {numSlots === 0 ? 'r' : numSlots})!</td></tr>
+                    <tr><td>{nValue === 0 ? 'n' : nValue}!</td></tr>
+                    <tr><td>({nValue === 0 ? 'n' : nValue} - {nValue === 0 ? 'r' : nValue})!</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -201,13 +178,12 @@ function App() {
             </div>  {/*  top-padding */}
 
             <div className={"bottom-padding flex flex-row flex-wrap"}>
-                {permutationsRef.current.map((permutation, index) => (
+                {permutations.map((permutationObject, index) => (
                   <Permutation 
                     key={index} 
+                    value={permutationObject.permutation}
                     colorMap = {colorMap}
-                    userString = {userString}
-                    value={permutation}
-                    numSlots={numSlots} />
+                    nValue={nValue} />
                 ))}
             </div> 
 
