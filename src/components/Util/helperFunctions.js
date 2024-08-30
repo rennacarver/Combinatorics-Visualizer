@@ -1,8 +1,10 @@
 //Generate all possible combinations from a string
 //Generate all possible subsets from an array
-export function findSubsets(string, r) {
+export function findSubsets(string, rValue) {
     const array = string.split('')
     const n = array.length
+    const r = typeof rValue === 'string' ? parseInt(rValue) : rValue
+
     let subsets = []
     // Loop through all possible subsets using bit manipulation starting at 1
     for (let i = 1; i < (1 << n); i++) {

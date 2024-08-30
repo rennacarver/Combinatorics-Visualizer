@@ -24,6 +24,7 @@ function App() {
   const [rValue, setRValue] = useState(0)
   const [colorMap, setColorMap] = useState({})
   const [permutations, setPermutations] = useState([])
+  const [permCount, setPermCount] = useState(1)
 
   //Initialize random color array
   const randomColorArray = randomizeArray(colorArrayState)
@@ -109,9 +110,8 @@ function App() {
     subsets.map ( (subset) =>
       subsetPermutations.push(...generatePermutations(subset, rValue))
     )
-    console.log(`rValue: ${rValue}`)
-    console.log(`userString: ${userString}`)
-    
+
+    setPermCount(subsetPermutations.length)
     setPermutations(subsetPermutations)
 
     //create unit-color map linking each unit to a unique color
@@ -200,7 +200,9 @@ function App() {
                     key={index} 
                     value={permutationObject.permutation}
                     colorMap = {colorMap}
-                    nValue={nValue} />
+                    nValue={nValue}
+                    permCount={permCount} 
+                  />
                 ))}
             </div> 
 

@@ -2,9 +2,9 @@ import React from 'react'
 import './Permutation.css'
 import PermutationUnit from '../PermutationUnit/PermutationUnit'
 
-const Permutation = ({value, colorMap, numSlots}) => {
+const Permutation = ({value, colorMap, permCount}) => {
 
-    const style = {"width" : `${80 / numSlots}%`, "fontSize" : `${12 / numSlots}vw`}
+    const style = {"width" : `${150 / permCount}%`, "fontSize" : `${100 / permCount}vw`}
     const permutation = value.split('')
 
     return (
