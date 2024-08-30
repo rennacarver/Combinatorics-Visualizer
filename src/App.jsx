@@ -21,7 +21,7 @@ function App() {
   )
   const [userString, setUserString] = useState('')
   const [nValue, setNValue] = useState(0)
-  const [rValue, setRvalue] = useState(0)
+  const [rValue, setRValue] = useState(0)
   const [colorMap, setColorMap] = useState({})
   const [permutations, setPermutations] = useState([])
 
@@ -40,9 +40,17 @@ function App() {
   const prevColorsRef = useRef([])
 
   //Handler functions
-  const handleChange = event => {
+  const handleStringChange = event => {
     setUserString(event.target.value.toUpperCase())
     setNValue(event.target.value.length)
+    setRValue(event.target.value.length)
+  }
+
+  const handleRChange = event => {
+    if (event.target.value <= nValue && event.target.value >= 0)
+      setRValue(event.target.value)
+    else
+      setRValue(nValue)
   }
 
   //Change color array when dark mode is toggled
@@ -93,12 +101,17 @@ function App() {
       //console.log(`k=${k}`)
     }
 
-    //Generate an array of arrays. Each array contains
-    let subsets = findSubsets(userString)
+    //Generate an array of subsets
+    let subsets = findSubsets(userString, rValue)
     let subsetPermutations = []
+
+    //Generate permutations of those subsets and push all objects into a single array
     subsets.map ( (subset) =>
-      subsetPermutations.push(...generatePermutations(subset))
+      subsetPermutations.push(...generatePermutations(subset, rValue))
     )
+    console.log(`rValue: ${rValue}`)
+    console.log(`userString: ${userString}`)
+    
     setPermutations(subsetPermutations)
 
     //create unit-color map linking each unit to a unique color
@@ -120,7 +133,7 @@ function App() {
     // console.log(`randomColorPoolRef.current = ${randomColorPoolRef.current}`)
     // console.log('-----------------------------')
 
-  }, [userString])
+  }, [rValue])
 
   return (
     <>
@@ -143,20 +156,24 @@ function App() {
               <h1>Linear Permutations Visualizer</h1>
               <form>
                   <label htmlFor="userString"></label>
-                  <input value={userString} onChange={handleChange} id="userString" placeholder='enter a string...' maxLength='6'/>
+                  <input value={userString} onChange={handleStringChange} id="userString" placeholder='enter a string...' maxLength='6'/>
+              </form>
+              <form>
+                  <label htmlFor="rInput">r:</label>
+                  <input type="number" value={rValue} onChange={handleRChange} id="rInput" placeholder='set r...' maxLength='1'/>
               </form>
             </div>
 
             <div className='top-bar flex'>
               <div className='notation flex flex-align-center'>
-                <h2><span className='sub'>{nValue === 0 ? 'n' : nValue} </span>P<span className='sub'>{nValue === 0 ? 'r' : nValue}</span></h2>
+                <h2><span className='sub'>{nValue === 0 ? 'n' : nValue} </span>P<span className='sub'>{nValue === 0 ? 'r' : rValue}</span></h2>
               </div>
 
               <div className='formula flex'>
                 <table>
                   <tbody>
                     <tr><td>{nValue === 0 ? 'n' : nValue}!</td></tr>
-                    <tr><td>({nValue === 0 ? 'n' : nValue} - {nValue === 0 ? 'r' : nValue})!</td></tr>
+                    <tr><td>({nValue === 0 ? 'n' : nValue} - {nValue === 0 ? 'r' : rValue})!</td></tr>
                   </tbody>
                 </table>
               </div>
