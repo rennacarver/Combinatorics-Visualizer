@@ -95,6 +95,12 @@ input {
     width: 20vw;
 }
 
+#rInput {
+    position: relative;
+    top: 10px;
+    width: 3vw;
+}
+
 .small {
     font-size: 10px;
 }

@@ -158,15 +158,18 @@ function App() {
                   <label htmlFor="userString"></label>
                   <input value={userString} onChange={handleStringChange} id="userString" placeholder='enter a string...' maxLength='6'/>
               </form>
-              <form>
-                  <label htmlFor="rInput">r:</label>
-                  <input type="number" value={rValue} onChange={handleRChange} id="rInput" placeholder='set r...' maxLength='1'/>
-              </form>
             </div>
 
             <div className='top-bar flex'>
               <div className='notation flex flex-align-center'>
-                <h2><span className='sub'>{nValue === 0 ? 'n' : nValue} </span>P<span className='sub'>{nValue === 0 ? 'r' : rValue}</span></h2>
+                <h2>
+                  <span className='sub'>{nValue === 0 ? 'n' : nValue} </span>P
+                  <form>
+                    <label htmlFor="rInput"></label>
+                    <input className='r-input-sub' type="number" value={rValue} onChange={handleRChange} id="rInput" placeholder='set r...' maxLength='1'/>
+                  </form>
+                  {/* <span className='sub'>{nValue === 0 ? 'r' : rValue}</span> */}
+                </h2>
               </div>
 
               <div className='formula flex'>
@@ -202,6 +205,7 @@ function App() {
                     colorMap = {colorMap}
                     nValue={nValue}
                     permCount={permCount} 
+                    rValue={rValue}
                   />
                 ))}
             </div> 
