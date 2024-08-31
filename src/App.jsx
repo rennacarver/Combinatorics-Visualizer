@@ -6,6 +6,7 @@ import logo from './assets/logo.png'
 import Slot from './components/Slot/Slot'
 import Permutation from './components/Permutation/Permutation'
 import NightModeButton from './components/NightModeButton/NightModeButton'
+import RFactorial from './components/RFactorial/RFactorial'
 import {findSubsets, generatePermutations, randomizeArray} from './components/Util/helperFunctions'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
   const [colorMap, setColorMap] = useState({})
   const [permutations, setPermutations] = useState([])
   const [permCount, setPermCount] = useState(1)
+  const [isPermutationMode, setPermutationMode] = useState(true)
 
   //Initialize random color array
   const randomColorArray = randomizeArray(colorArrayState)
@@ -52,6 +54,10 @@ function App() {
       setRValue(event.target.value)
     else
       setRValue(nValue)
+  }
+
+  const handleModeChange = () => {
+    setPermutationMode(isPermutationMode ? false : true)
   }
 
   //Change color array when dark mode is toggled
@@ -163,7 +169,10 @@ function App() {
             <div className='top-bar flex'>
               <div className='notation flex flex-align-center'>
                 <h2>
-                  <span className='sub'>{nValue === 0 ? 'n' : nValue} </span>P
+                  <span className='sub'>{nValue === 0 ? 'n' : nValue} </span>
+                  <div style={{'display': 'inline'}} onClick={handleModeChange}>
+                  {isPermutationMode ? 'P' : 'C'}
+                  </div>
                   <form>
                     <label htmlFor="rInput"></label>
                     <input className='r-input-sub' type="number" value={rValue} onChange={handleRChange} id="rInput" placeholder='set r...' maxLength='1'/>
@@ -176,7 +185,15 @@ function App() {
                 <table>
                   <tbody>
                     <tr><td>{nValue === 0 ? 'n' : nValue}!</td></tr>
-                    <tr><td>({nValue === 0 ? 'n' : nValue} - {nValue === 0 ? 'r' : rValue})!</td></tr>
+                    <tr><td>
+                      {/* <div style={{'display': 'inline'}}>
+                        {nValue === 0 ? 'r' : rValue}!
+                      </div> */}
+                      {isPermutationMode  
+                      ? ""
+                      : <RFactorial rValue={rValue} nValue={nValue}></RFactorial>
+                      }
+                      ({nValue === 0 ? 'n' : nValue} - {nValue === 0 ? 'r' : rValue})!</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -199,16 +216,22 @@ function App() {
 
             <div className={"bottom-padding flex flex-row flex-wrap"}>
                 {permutations.map((permutationObject, index) => (
-                  <Permutation 
+                  <Permutation
                     key={index} 
                     value={permutationObject.permutation}
                     colorMap = {colorMap}
                     nValue={nValue}
                     permCount={permCount} 
-                    rValue={rValue}
+                    isParentCombination={permutationObject.isParentCombination}
+                    isPermutationMode={isPermutationMode}
                   />
                 ))}
-            </div> 
+            </div>
+            {permutations.length !== 0 ? "" :
+              <div className={"bottom-padding flex flex-row flex-wrap"}>
+                <h3>NO RESULT</h3>
+              </div>
+            }
 
         </div> {/* div-page */}
       </div> {/*Dark Mode Div */}

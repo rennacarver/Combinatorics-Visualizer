@@ -2,7 +2,7 @@ import React from 'react'
 import './Permutation.css'
 import PermutationUnit from '../PermutationUnit/PermutationUnit'
 
-const Permutation = ({value, colorMap, permCount, rValue}) => {
+const Permutation = ({value, colorMap, nValue, permCount, isParentCombination, isPermutationMode}) => {
 
     let style = {}
 
@@ -16,7 +16,7 @@ const Permutation = ({value, colorMap, permCount, rValue}) => {
 
     return (
         <>
-            <div className='permutation' style={style}>
+            <div className={(!isParentCombination && !isPermutationMode ? 'child-permutation': '') + ' permutation'} style={style}>
                 {permutation.map((permutationUnit, index) => (
                     <PermutationUnit key={index} value={permutationUnit} color={colorMap[permutationUnit]} />
                 ))}

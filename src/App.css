@@ -230,6 +230,10 @@ table.slot-table {
     flex-wrap: nowrap;
 }
 
+.child-permutation {
+    opacity: 0.15;
+}
+
 
 /* Permutation Unit */
 .permutation-unit {

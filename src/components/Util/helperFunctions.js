@@ -41,7 +41,8 @@ function permute(str, left, right) {
         permutations.push(
             {
             combination : subset,
-            permutation : str
+            permutation : str,
+            isParentCombination: subset === str
             }
         )
     } else {
