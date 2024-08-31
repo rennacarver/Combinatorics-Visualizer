@@ -5,11 +5,11 @@
 ![Linear Permutations_medium](https://github.com/user-attachments/assets/eee1e92c-8824-4836-8ad0-2653aee079cd)
 
 ## Features
-
  - enter a string of text (any language up to 6 chars) to display a colorful list of all permutations
  - switch between Combinations and Permutations mode to see how the formula and permutation list changes
  - change the 'r' value to see any possible nCr or nPr
  - Try: '你們好', 'test', '+-=+', '♡♠♦♣'
+ - click the sun/moon icon to switch on dark mode
 
 ## Lessons Learned
  - Enabling dark mode on the body element which is above the root element requires separate code
@@ -22,6 +22,7 @@
  - Non-english fonts causes text to wrap breaking formatting
 
 ## Limitations/Future Enhancements
+ - Allow users to set a dark mode preference or default to system
  - Add Animations for appearance of new elements
  - Enable duplicate unit off/on switch
  - Enable more than 6 characters to be inputted without slowdown
