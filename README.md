@@ -18,6 +18,7 @@
 
 ## Fixes Needed
  - Color selector needs to be rewritten
+ - Color selector doesn't maintain seperation of concerns
  - Not responsive for mobile
  - Non-english fonts causes text to wrap breaking formatting
 
