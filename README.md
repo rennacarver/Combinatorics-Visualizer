@@ -1,6 +1,6 @@
 # Combinatorics Visualizer
 
-[--LIVE Demo--](https://rennacarver.github.io/Combinations-Visualizer/)
+[--LIVE Demo--](https://rennacarver.github.io/Combinatorics-Visualizer/)
 
 ![Linear Permutations_medium](https://github.com/user-attachments/assets/eee1e92c-8824-4836-8ad0-2653aee079cd)
 

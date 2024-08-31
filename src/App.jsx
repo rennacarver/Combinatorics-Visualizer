@@ -159,7 +159,7 @@ function App() {
             </div>
 
             <div className='flex flex-start flex-align-center title-div'>
-              <h1>Linear Permutations Visualizer</h1>
+              <h1>Combinatorics Visualizer</h1>
               <form>
                   <label htmlFor="userString"></label>
                   <input value={userString} onChange={handleStringChange} id="userString" placeholder='enter a string...' maxLength='6'/>
