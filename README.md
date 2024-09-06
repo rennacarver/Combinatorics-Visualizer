@@ -17,6 +17,7 @@
  - Switching between design tasks and thinking tasks is a great way to maintain momentum
 
 ## Fixes Needed
+ - Uppercase toggle is out of sync
  - Font size needs to adjust to parent container size
  - Color selector needs to be rewritten
  - Color selector doesn't maintain separation of concerns
