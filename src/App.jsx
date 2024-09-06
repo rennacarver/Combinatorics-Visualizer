@@ -43,10 +43,12 @@ function App() {
 
   //Handler functions
   const handleStringChange = event => {
-    const stringArray = splitter.splitGraphemes(event.target.value)
+  let stringArray = splitter.splitGraphemes(event.target.value)
+    if (stringArray.length > 6)
+      stringArray = stringArray.slice(0, 6)
     const stringLength = stringArray.length
 
-    setUserString(event.target.value)
+    setUserString(stringArray.join(''))
     setUserStringArray(stringArray)
     setUserStringLength(stringLength)
     setNValue(stringLength)
