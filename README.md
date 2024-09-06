@@ -30,3 +30,5 @@
  - Enable user to select custom colors
  - Enable circular permutations
  - Enable emojis
+ - Enable repeat elements from set
+ - Show number for total permutations currently being displayed

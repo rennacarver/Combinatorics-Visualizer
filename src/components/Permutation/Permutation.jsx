@@ -11,7 +11,7 @@ const Permutation = ({value, colorMap, nValue, permCount, isParentCombination, i
     else if (permCount === 2)
         style = {"width" : `35%`, "fontSize" : `${30 / permCount}vw`}
     else 
-        style = {"width" : `${200 / permCount}vw`, "fontSize" : `${75 / permCount}vw`}
+        style = {"width" : `${200 / permCount}vw`, "fontSize" : `${40 / permCount}vw`}
     const permutation = value.split('')
 
     return (

@@ -10,7 +10,7 @@ const NightModeButton = () => {
 
     return (
         <>
-            <div onClick={() => toggleTheme()}>
+            <div className='night-mode-div' onClick={() => toggleTheme()}>
                 {theme === 'dark-theme' ? <MoonIcon /> : ""}
                 {theme === 'light-theme'? <SunIcon /> : ""}
             </div>

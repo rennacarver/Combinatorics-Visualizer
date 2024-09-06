@@ -1,7 +1,12 @@
+import Graphemer from 'graphemer'
+
+//Graphemer
+let splitter = new Graphemer();
+
 //Generate all possible combinations from a string
 //Generate all possible subsets from an array
 export function findSubsets(string, rValue) {
-    const array = string.split('')
+    const array = splitter.splitGraphemes(string)
     const n = array.length
     const r = typeof rValue === 'string' ? parseInt(rValue) : rValue
 
@@ -31,36 +36,40 @@ function bitCount (num) {
 }
 
 //Generate an array of permutation objects
-//combination: the subset the permutation belongs to
-//permutation: the unique permutation of the string
-export function generatePermutations(str) {
-const subset = str;
-const permutations = []
-function permute(str, left, right) {
-    if (left == right) {
+export function generatePermutations(subset) {
+    const arr = splitter.splitGraphemes(subset)
+    const permutations = []
+
+    let res = [[]]
+
+    //generate a 2d array of permutations
+    for (let num of arr) {
+        const temp = [];
+        for (let arr of res) {
+            for (let i = 0; i <= arr.length; i++) {
+                const newArr = [...arr];
+                newArr.splice(i, 0, num);
+                temp.push(
+                    newArr
+                )
+            }
+        }
+        res = temp;
+    }
+
+    //convert 2d array to array of objects
+    //combination: the subset the permutation belongs to
+    //permutation: the unique permutation of the string
+    for (let i = 0; i<res.length; i++) {
         permutations.push(
             {
             combination : subset,
-            permutation : str,
-            isParentCombination: subset === str
+            permutation : res[i].join(''),
+            isParentCombination: subset === res[i].join('')
             }
         )
-    } else {
-        for (let i = left; i <= right; i++) {
-            str = swap(str, left, i)
-            permute(str, left + 1, right)
-            str = swap(str, left, i)
-        }
     }
-}
-function swap(a, i, j) {
-    const charArray = a.split("")
-    const temp = charArray[i]
-    charArray[i] = charArray[j]
-    charArray[j] = temp
-    return charArray.join("")
-}
-permute(str, 0, str.length - 1)
+
 return permutations
 }
 
