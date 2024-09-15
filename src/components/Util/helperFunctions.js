@@ -78,6 +78,7 @@ export function randomizeArray(array) {
 }
 
 export function factorial(n, r = 1) {
+    if (n === 0) return 1
     while (n > 0) r *= n--;
     return r;
 }

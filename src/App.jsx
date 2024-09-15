@@ -9,6 +9,7 @@ import Permutation from './components/Permutation/Permutation'
 import NightModeButton from './components/NightModeButton/NightModeButton'
 import RFactorial from './components/RFactorial/RFactorial'
 import { findSubsets, generatePermutations, randomizeArray, factorial } from './components/Util/helperFunctions'
+import PermutationCounter from './components/PermutationCounter/PermutationCounter'
 
 function App() {
 
@@ -33,7 +34,8 @@ function App() {
   const [rValue, setRValue] = useState(0)
   const [colorMap, setColorMap] = useState({})
   const [permutations, setPermutations] = useState([])
-  const [permCount, setPermCount] = useState(1)
+  const [permCount, setPermCount] = useState(0)
+  const [combCount, setCombCount] = useState(0)
   const [isPermutationMode, setPermutationMode] = useState(true)
   const [isUppercase, setIsUppercase] = useState(true)
   const [userStringLength, setUserStringLength] = useState(0)
@@ -44,12 +46,12 @@ function App() {
   //Handler functions
   const handleStringChange = event => {
     let stringArray = splitter.splitGraphemes(event.target.value)
-    if (stringArray.length > 6)
-      stringArray = stringArray.slice(0, 6)
+    if (stringArray.length > 10)
+      stringArray = stringArray.slice(0, 10)
     const stringLength = stringArray.length
 
-    setUserString(stringArray.join(''))
-    setUserStringArray(stringArray)
+    setUserString(isUppercase ? stringArray.join('').toUpperCase() : stringArray.join(''))
+    setUserStringArray(isUppercase ? stringArray.join('').toUpperCase().split('') : stringArray)
     setUserStringLength(stringLength)
     setNValue(stringLength)
     setRValue(stringLength)
@@ -68,7 +70,7 @@ function App() {
 
   const handleCaseModeChange = () => {
     setIsUppercase(!isUppercase)
-    setUserString(isUppercase ? userString.toUpperCase() : userString.toLowerCase())
+    setUserString(isUppercase ? userString.toUpperCase() : userString)
   }
 
   //Change color array when dark mode is toggled
@@ -83,40 +85,47 @@ function App() {
   useEffect(() => {
 
     //Halt generation if results exceed 1,000
-    setPermCount(factorial(nValue) / factorial(nValue - rValue))
-    if (permCount > 1000) {
+    const tempPermCount = factorial(nValue) / factorial(nValue - rValue)
+    const tempCombCount = factorial(nValue) / (factorial(rValue) * factorial(nValue - rValue))
+    setPermCount(tempPermCount)
+    setCombCount(tempCombCount)
+
+    if (tempPermCount > 1000) {
+      console.log(tempPermCount)
+      setPermutations([])
       setResultText('Result too large')
-      return
+    } else {
+      console.log(`calculating result...`)
+      //Generate an array of subsets
+      let subsets = findSubsets(userString, rValue)
+
+      //Generate permutations of those subsets and push all objects into a single array
+      let subsetPermutations = []
+      subsets.map((subset) =>
+        subsetPermutations.push(...generatePermutations(subset))
+      )
+
+      setPermCount(subsetPermutations.length)
+      setCombCount(subsets.length)
+      setPermutations(subsetPermutations)
+      if (subsetPermutations.length === 0)
+        setResultText('No result')
+
+      //create unit-color map linking each unit to a unique color
+      let currentKey;
+      let currentVal;
+      let tempColorMap = {}
+
+      for (let i = 0; i < userStringLength; i++) {
+        currentKey = userStringArray[i];
+        currentVal = randomColorArray[i];
+        tempColorMap[currentKey] = currentVal;
+      }
+
+      setColorMap(tempColorMap)
     }
 
-    //Generate an array of subsets
-    let subsets = findSubsets(userString, rValue)
-
-    //Generate permutations of those subsets and push all objects into a single array
-    let subsetPermutations = []
-    subsets.map((subset) =>
-      subsetPermutations.push(...generatePermutations(subset))
-    )
-
-    setPermCount(subsetPermutations.length)
-    setPermutations(subsetPermutations)
-    if (subsetPermutations.length === 0)
-      setResultText('No result')
-
-    //create unit-color map linking each unit to a unique color
-    let currentKey;
-    let currentVal;
-    let tempColorMap = {}
-
-    for (let i = 0; i < userStringLength; i++) {
-      currentKey = userStringArray[i];
-      currentVal = randomColorArray[i];
-      tempColorMap[currentKey] = currentVal;
-    }
-
-    setColorMap(tempColorMap)
-
-  }, [rValue, userString])
+  }, [rValue, userString, isUppercase])
 
   return (
     <>
@@ -134,16 +143,6 @@ function App() {
                 <label htmlFor="userString"></label>
                 <input value={userString} onChange={handleStringChange} id="userString" placeholder='enter a string...' maxLength='10' />
               </form>
-            </div>
-
-            <div className='flex flex-start flex-align center flex-space-around mode-selectors-div'>
-              <span onClick={handlePermModeChange} style={{ cursor: 'pointer' }}>
-                {isPermutationMode ? 'Permutations' : 'Combinations'}
-              </span>
-              <span onClick={handleCaseModeChange} style={{ cursor: 'pointer' }}>
-                {isUppercase ? 'Uppercase' : 'Lowercase'}
-              </span>
-
             </div>
 
             <div className='top-bar flex'>
@@ -215,7 +214,20 @@ function App() {
               <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
               <span className='beta'>BETA</span>
             </div>
-            <span className='perm'>Total Permutations: {permCount}</span>
+            <span className='perm'>
+              {/* {isPermutationMode ? Total Permutations: {permCount} : Total Combinations : {combCount}} */}
+              <PermutationCounter
+                isPermutationMode={isPermutationMode}
+                permCount={permCount}
+                combCount={combCount}
+              ></PermutationCounter>
+            </span>
+            <span onClick={handlePermModeChange} style={{ cursor: 'pointer' }}>
+              {isPermutationMode ? 'Mode: Permutations' : 'Mode: Combinations'}
+            </span>
+            <span onClick={handleCaseModeChange} style={{ cursor: 'pointer' }}>
+              {isUppercase ? 'Uppercase ON' : 'Uppercase OFF'}
+            </span>
             <div className="night-mode-button"><NightModeButton></NightModeButton></div>
           </div>
 
