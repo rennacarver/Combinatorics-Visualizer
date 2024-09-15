@@ -17,6 +17,7 @@
  - Switching between design tasks and thinking tasks is a great way to maintain momentum
 
 ## Fixes Needed
+ - Allow faded permutations to be hidden in combinations mode
  - Color assignments should persist between input changes
  - Color assign bug needs fix
  - Font size needs to adjust to parent container size
