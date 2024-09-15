@@ -17,8 +17,8 @@
  - Switching between design tasks and thinking tasks is a great way to maintain momentum
 
 ## Fixes Needed
- - Uppercase toggle is out of sync
  - Color assignments should persist between input changes
+ - Color assign bug needs fix
  - Font size needs to adjust to parent container size
  - Color selector needs to be rewritten
  - Color selector doesn't maintain separation of concerns
@@ -29,7 +29,5 @@
  - Allow users to set a dark mode preference or default to system
  - Add Animations for appearance of new elements
  - Enable duplicate unit off/on switch
- - Enable more than 6 characters for input
  - Enable user to select custom colors
  - Enable circular permutations
- - Enable repeat elements from set
