@@ -18,6 +18,7 @@
 
 ## Fixes Needed
  - Uppercase toggle is out of sync
+ - Color assignments should persist between input changes
  - Font size needs to adjust to parent container size
  - Color selector needs to be rewritten
  - Color selector doesn't maintain separation of concerns

@@ -16,23 +16,23 @@ export function findSubsets(string, rValue) {
         // Loop through all elements of the input array
         let subset = []
         //the r-value for nCr is equal to the number of 1's in the binary representation
-        if (bitCount(i) === r){
+        if (bitCount(i) === r) {
             for (let j = 0; j < n; j++) {
-            // Check if the jth bit is set in the current subset
-            if ((i & (1 << j)) !== 0) {
-                // If the jth bit is set, add the jth element to the subset
-                subset.push(array[j]);
+                // Check if the jth bit is set in the current subset
+                if ((i & (1 << j)) !== 0) {
+                    // If the jth bit is set, add the jth element to the subset
+                    subset.push(array[j]);
+                }
             }
-        }
-        subsets.push(subset.join(''))
+            subsets.push(subset.join(''))
         }
     }
     return subsets
 }
 // THIS CODE IS IN PART CONTRIBUTED TO YASH AGARWAL(YASHAGARWAL2852002)
 
-function bitCount (num) {
-    return (num >>> 0).toString(2).replaceAll("0","").length
+function bitCount(num) {
+    return (num >>> 0).toString(2).replaceAll("0", "").length
 }
 
 //Generate an array of permutation objects
@@ -60,19 +60,24 @@ export function generatePermutations(subset) {
     //convert 2d array to array of objects
     //combination: the subset the permutation belongs to
     //permutation: the unique permutation of the string
-    for (let i = 0; i<res.length; i++) {
+    for (let i = 0; i < res.length; i++) {
         permutations.push(
             {
-            combination : subset,
-            permutation : res[i].join(''),
-            isParentCombination: subset === res[i].join('')
+                combination: subset,
+                permutation: res[i].join(''),
+                isParentCombination: subset === res[i].join('')
             }
         )
     }
 
-return permutations
+    return permutations
 }
 
-export function randomizeArray (array) {
+export function randomizeArray(array) {
     return [...array].sort((a, b) => 0.5 - Math.random())
+}
+
+export function factorial(n, r = 1) {
+    while (n > 0) r *= n--;
+    return r;
 }

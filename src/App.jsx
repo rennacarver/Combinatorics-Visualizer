@@ -8,7 +8,7 @@ import Slot from './components/Slot/Slot'
 import Permutation from './components/Permutation/Permutation'
 import NightModeButton from './components/NightModeButton/NightModeButton'
 import RFactorial from './components/RFactorial/RFactorial'
-import {findSubsets, generatePermutations, randomizeArray} from './components/Util/helperFunctions'
+import { findSubsets, generatePermutations, randomizeArray, factorial } from './components/Util/helperFunctions'
 
 function App() {
 
@@ -20,13 +20,13 @@ function App() {
   //Graphemer
   let splitter = new Graphemer();
 
-  //STATES
+  //States
   const [colorArrayState, setColorArrayState] = useState(
     theme === 'dark-theme'
       ? darkColorArray
       : lightColorArray
   )
-
+  const [resultText, setResultText] = useState('No Result')
   const [userString, setUserString] = useState('')
   const [userStringArray, setUserStringArray] = useState([])
   const [nValue, setNValue] = useState(0)
@@ -43,7 +43,7 @@ function App() {
 
   //Handler functions
   const handleStringChange = event => {
-  let stringArray = splitter.splitGraphemes(event.target.value)
+    let stringArray = splitter.splitGraphemes(event.target.value)
     if (stringArray.length > 6)
       stringArray = stringArray.slice(0, 6)
     const stringLength = stringArray.length
@@ -79,20 +79,29 @@ function App() {
       setColorArrayState(lightColorArray)
   }, [theme])
 
-  //Random Color Picker
+  //Generate permutations when the r-value or userString is updated
   useEffect(() => {
+
+    //Halt generation if results exceed 1,000
+    setPermCount(factorial(nValue) / factorial(nValue - rValue))
+    if (permCount > 1000) {
+      setResultText('Result too large')
+      return
+    }
 
     //Generate an array of subsets
     let subsets = findSubsets(userString, rValue)
 
     //Generate permutations of those subsets and push all objects into a single array
     let subsetPermutations = []
-    subsets.map ( (subset) =>
+    subsets.map((subset) =>
       subsetPermutations.push(...generatePermutations(subset))
     )
 
     setPermCount(subsetPermutations.length)
     setPermutations(subsetPermutations)
+    if (subsetPermutations.length === 0)
+      setResultText('No result')
 
     //create unit-color map linking each unit to a unique color
     let currentKey;
@@ -100,9 +109,9 @@ function App() {
     let tempColorMap = {}
 
     for (let i = 0; i < userStringLength; i++) {
-        currentKey = userStringArray[i];
-        currentVal = randomColorArray[i];
-        tempColorMap[currentKey] = currentVal;    
+      currentKey = userStringArray[i];
+      currentVal = randomColorArray[i];
+      tempColorMap[currentKey] = currentVal;
     }
 
     setColorMap(tempColorMap)
@@ -113,7 +122,7 @@ function App() {
     <>
       {/* Dark Mode Div */}
       <div className={`App ${theme}`}>
-        
+
 
         <div className='page-div border'>
 
@@ -122,17 +131,17 @@ function App() {
             <div className='flex flex-start flex-align-center title-div'>
               <h1>Linear Combinatorics Visualizer</h1>
               <form>
-                  <label htmlFor="userString"></label>
-                  <input value={userString} onChange={handleStringChange} id="userString" placeholder='enter a string...' maxLength='10'/>
+                <label htmlFor="userString"></label>
+                <input value={userString} onChange={handleStringChange} id="userString" placeholder='enter a string...' maxLength='10' />
               </form>
             </div>
 
             <div className='flex flex-start flex-align center flex-space-around mode-selectors-div'>
-              <span onClick={handlePermModeChange} style={{cursor:'pointer'}}>
-                  {isPermutationMode ? 'Permutations' : 'Combinations'}
+              <span onClick={handlePermModeChange} style={{ cursor: 'pointer' }}>
+                {isPermutationMode ? 'Permutations' : 'Combinations'}
               </span>
-              <span onClick={handleCaseModeChange} style={{cursor:'pointer'}}>
-                  {isUppercase ? 'Uppercase' : 'Lowercase'}
+              <span onClick={handleCaseModeChange} style={{ cursor: 'pointer' }}>
+                {isUppercase ? 'Uppercase' : 'Lowercase'}
               </span>
 
             </div>
@@ -141,12 +150,12 @@ function App() {
               <div className='notation flex flex-align-center'>
                 <h2>
                   <span className='sub'>{nValue === 0 ? 'n' : nValue} </span>
-                  <span onClick={handlePermModeChange} style={{cursor:'pointer'}}>
-                  {isPermutationMode ? 'P' : 'C'}
+                  <span onClick={handlePermModeChange} style={{ cursor: 'pointer' }}>
+                    {isPermutationMode ? 'P' : 'C'}
                   </span>
                   <form>
                     <label htmlFor="rInput"></label>
-                    <input className='r-input-sub' type="number" value={rValue} onChange={handleRChange} id="rInput" placeholder='set r...' maxLength='1'/>
+                    <input className='r-input-sub' type="number" value={rValue} onChange={handleRChange} id="rInput" placeholder='set r...' maxLength='1' />
                   </form>
                 </h2>
               </div>
@@ -156,9 +165,9 @@ function App() {
                   <tbody>
                     <tr><td>{nValue === 0 ? 'n' : nValue}!</td></tr>
                     <tr><td>
-                      {isPermutationMode  
-                      ? ""
-                      : <RFactorial rValue={rValue} nValue={nValue}></RFactorial>
+                      {isPermutationMode
+                        ? ""
+                        : <RFactorial rValue={rValue} nValue={nValue}></RFactorial>
                       }
                       ({nValue === 0 ? 'n' : nValue} - {nValue === 0 ? 'r' : rValue})!</td></tr>
                   </tbody>
@@ -169,50 +178,50 @@ function App() {
 
 
                 {userStringArray.map((unit, index) => (
-                  <Slot 
-                    key={index} 
-                    value = {unit}
-                    color = {colorMap[unit]}
+                  <Slot
+                    key={index}
+                    value={unit}
+                    color={colorMap[unit]}
                   />
                 ))}
-                
+
               </div>
 
-              </div> {/*  top-bar */}
-            </div>  {/*  top-padding */}
+            </div> {/*  top-bar */}
+          </div>  {/*  top-padding */}
 
+          <div className={"bottom-padding flex flex-row flex-wrap"}>
+            {permutations.map((permutationObject, index) => (
+              <Permutation
+                key={index}
+                value={permutationObject.permutation}
+                colorMap={colorMap}
+                nValue={nValue}
+                permCount={permCount}
+                isParentCombination={permutationObject.isParentCombination}
+                isPermutationMode={isPermutationMode}
+              />
+            ))}
+          </div>
+          {permutations.length !== 0 ? "" :
             <div className={"bottom-padding flex flex-row flex-wrap"}>
-                {permutations.map((permutationObject, index) => (
-                  <Permutation
-                    key={index} 
-                    value={permutationObject.permutation}
-                    colorMap = {colorMap}
-                    nValue={nValue}
-                    permCount={permCount} 
-                    isParentCombination={permutationObject.isParentCombination}
-                    isPermutationMode={isPermutationMode}
-                  />
-                ))}
+              <h3>{resultText}</h3>
             </div>
-            {permutations.length !== 0 ? "" :
-              <div className={"bottom-padding flex flex-row flex-wrap"}>
-                <h3>NO RESULT</h3>
-              </div>
-            }
+          }
 
-            <hr></hr>
-            <div className='flex flex-space-between flex-align-center logo-div'>
-              <div className='flex flex-align-center'>
-                <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
-                <span className='beta'>BETA</span>
-              </div>
-              <span className='perm'>Total Permutations: {permCount}</span>
-              <div className="night-mode-button"><NightModeButton></NightModeButton></div>
+          <hr></hr>
+          <div className='flex flex-space-between flex-align-center logo-div'>
+            <div className='flex flex-align-center'>
+              <a href="https://www.projectcarver.com"><img src={logo} alt="project carver logo" /></a>
+              <span className='beta'>BETA</span>
             </div>
+            <span className='perm'>Total Permutations: {permCount}</span>
+            <div className="night-mode-button"><NightModeButton></NightModeButton></div>
+          </div>
 
         </div> {/* div-page */}
       </div> {/*Dark Mode Div */}
-      
+
     </>
   )
 }
