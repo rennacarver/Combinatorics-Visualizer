@@ -12,9 +12,10 @@
  - click the sun/moon icon to switch on dark mode
 
 ## Lessons Learned
- - Enabling dark mode on the body element which is above the root element requires separate code
- - Font size cannot easily detect the size of it's parent container
+ - Enabling dark mode on the body element which is above the root element requires additional code
+ - Font size cannot easily detect the size of its parent container
  - Switching between design tasks and thinking tasks is a great way to maintain momentum
+ - SVG elements have more flexibility when imported as React components
 
 ## Fixes Needed
  - Allow faded permutations to be hidden in combinations mode
@@ -31,4 +32,3 @@
  - Add Animations for appearance of new elements
  - Enable duplicate unit off/on switch
  - Enable user to select custom colors
- - Enable circular permutations
