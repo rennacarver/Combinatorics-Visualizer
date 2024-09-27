@@ -1,6 +1,7 @@
 import React from 'react'
 import './Permutation.css'
 import PermutationUnit from '../PermutationUnit/PermutationUnit'
+import { lightColorArray, darkColorArray } from '../../Util/colorArrays'
 
 const Permutation = ({
   permutation,
@@ -8,17 +9,28 @@ const Permutation = ({
   nValue,
   permCount,
   permutationGroup,
+  subsetGroup,
   isPermutationMode,
   isDuplicatesMode,
+  isHighlightSubsets,
 }) => {
   let style = {}
 
   if (permCount === 1)
-    style = { width: `100%`, fontSize: `${30 / permCount}vw` }
+    style = {
+      width: `100%`,
+      fontSize: `${30 / permCount}vw`,
+    }
   else if (permCount === 2)
-    style = { width: `35%`, fontSize: `${30 / permCount}vw` }
+    style = {
+      width: `35%`,
+      fontSize: `${30 / permCount}vw`,
+    }
   else
-    style = { width: `${200 / permCount}vw`, fontSize: `${40 / permCount}vw` }
+    style = {
+      width: `${200 / permCount}vw`,
+      fontSize: `${40 / permCount}vw`,
+    }
 
   return (
     <>

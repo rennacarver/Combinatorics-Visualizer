@@ -13,36 +13,13 @@ import {
   generatePermutations,
   randomizeArray,
   factorial,
-} from './components/Util/helperFunctions'
+} from './Util/helperFunctions'
 import PermutationCounter from './components/PermutationCounter/PermutationCounter'
+import { lightColorArray, darkColorArray } from './Util/colorArrays'
 
 function App() {
   //Constants
   const { theme } = useContext(ThemeContext)
-  const lightColorArray = [
-    '#EC6769',
-    '#80D361',
-    '#4498C3',
-    '#D3B461',
-    '#EB7814',
-    '#EC66AB',
-    '#B461D3',
-    '#C36F44',
-    '#5F72FA',
-    '#44C3AE',
-  ]
-  const darkColorArray = [
-    '#EC6769',
-    '#80D361',
-    '#4498C3',
-    '#FAE75F',
-    '#F2A664',
-    '#EC66AB',
-    '#B461D3',
-    '#C36F44',
-    '#5F72FA',
-    '#67ECEA',
-  ]
 
   //Graphemer
   let splitter = new Graphemer()
@@ -64,6 +41,7 @@ function App() {
   const [isPermutationMode, setPermutationMode] = useState(true)
   const [isUppercase, setIsUppercase] = useState(true)
   const [isDuplicatesMode, setIsDuplicatesMode] = useState(false)
+  const [isHighlightSubsets, setIsHighlightSubsets] = useState(false)
   const [userStringLength, setUserStringLength] = useState(0)
 
   //Handler functions
@@ -115,6 +93,10 @@ function App() {
 
   const handleDuplicatesModeChange = () => {
     setIsDuplicatesMode(!isDuplicatesMode)
+  }
+
+  const handleHighlightSubsetsChange = () => {
+    setIsHighlightSubsets(!isHighlightSubsets)
   }
 
   //Change color array when dark mode is toggled
@@ -248,9 +230,11 @@ function App() {
                 colorMap={colorMap}
                 nValue={nValue}
                 permCount={permCount}
+                subsetGroup={permutation.subsetGroup}
                 permutationGroup={permutation.permutationGroup}
                 isPermutationMode={isPermutationMode}
                 isDuplicatesMode={isDuplicatesMode}
+                isHighlightSubsets={isHighlightSubsets}
               />
             ))}
           </div>
@@ -287,7 +271,17 @@ function App() {
               onClick={handleDuplicatesModeChange}
               style={{ cursor: 'pointer' }}
             >
-              {isDuplicatesMode ? 'Duplicates ON' : 'Duplicates OFF'}
+              {isDuplicatesMode
+                ? 'Duplicates Label: ON'
+                : 'Duplicates Label: OFF'}
+            </span>
+            <span
+              onClick={handleHighlightSubsetsChange}
+              style={{ cursor: 'pointer' }}
+            >
+              {isHighlightSubsets
+                ? 'Highlight Combinations: ON'
+                : 'Highlight Combinations: OFF'}
             </span>
             <div className='night-mode-button'>
               <NightModeButton></NightModeButton>
