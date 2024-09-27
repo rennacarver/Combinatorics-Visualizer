@@ -63,6 +63,7 @@ function App() {
   const [combCount, setCombCount] = useState(0)
   const [isPermutationMode, setPermutationMode] = useState(true)
   const [isUppercase, setIsUppercase] = useState(true)
+  const [isDuplicatesMode, setIsDuplicatesMode] = useState(false)
   const [userStringLength, setUserStringLength] = useState(0)
 
   //Handler functions
@@ -112,6 +113,10 @@ function App() {
     setIsUppercase(!isUppercase)
   }
 
+  const handleDuplicatesModeChange = () => {
+    setIsDuplicatesMode(!isDuplicatesMode)
+  }
+
   //Change color array when dark mode is toggled
   useEffect(() => {
     if (theme === 'dark-theme') setColorArrayState(darkColorArray)
@@ -134,16 +139,14 @@ function App() {
       //Generate an array of subsets
       let subsets = findSubsets(graphemeArray, rValue)
 
-      //Generate permutations of those subsets and push all objects into a single array
-      // let subsetPermutations = []
-      // subsets.map((subset) =>
-      //   subsetPermutations.push(...generatePermutations(subset))
-      // )
+      //Generate permutations of subsets
+      let subsetPermutations = []
+      subsets.map((subset) =>
+        subsetPermutations.push(...generatePermutations(subset))
+      )
 
-      // setPermutations(subsetPermutations)
-      // if (subsetPermutations.length === 0) setResultText('No result')
-
-      // console.log(subsetPermutations)
+      setPermutations(subsetPermutations)
+      if (subsetPermutations.length === 0) setResultText('No result')
 
       //create unit-color map linking each unit to a unique color
       let currentKey
@@ -238,17 +241,18 @@ function App() {
           </div>{' '}
           {/*  top-padding */}
           <div className={'bottom-padding flex flex-row flex-wrap'}>
-            {/* {permutations.map((permutation, index) => (
+            {permutations.map((permutation, index) => (
               <Permutation
                 key={index}
-                value={permutation.value}
+                permutation={permutation.permutation}
                 colorMap={colorMap}
                 nValue={nValue}
                 permCount={permCount}
-                isParentCombination={permutation.isParentCombination}
+                permutationGroup={permutation.permutationGroup}
                 isPermutationMode={isPermutationMode}
+                isDuplicatesMode={isDuplicatesMode}
               />
-            ))} */}
+            ))}
           </div>
           {permutations.length !== 0 ? (
             ''
@@ -278,6 +282,12 @@ function App() {
             </span>
             <span onClick={handleCaseModeChange} style={{ cursor: 'pointer' }}>
               {isUppercase ? 'Uppercase ON' : 'Uppercase OFF'}
+            </span>
+            <span
+              onClick={handleDuplicatesModeChange}
+              style={{ cursor: 'pointer' }}
+            >
+              {isDuplicatesMode ? 'Duplicates ON' : 'Duplicates OFF'}
             </span>
             <div className='night-mode-button'>
               <NightModeButton></NightModeButton>

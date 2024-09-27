@@ -6,6 +6,7 @@ export function findSubsets(graphemeArray, rValue) {
 
   let subsetCounter = {}
   let subsets = []
+  let counter = 0
   // Loop through all possible subsets using bit manipulation starting at 1
   for (let i = 1; i < 1 << n; i++) {
     // Loop through all elements of the input array
@@ -23,19 +24,19 @@ export function findSubsets(graphemeArray, rValue) {
       }
 
       let subsetString = subsetStringArray.join('')
-
       if (!subsetCounter[subsetString]) subsetCounter[subsetString] = 1
       else subsetCounter[subsetString] += 1
 
       subsets.push({
         subset: subset,
-        string: subsetString,
-        isDuplicateSubset: subsetCounter[subsetString] > 1,
+        subsetString: subsetString,
+        duplicateSubset: subsetCounter[subsetString],
+        subsetGroup: counter,
       })
+
+      counter++
     }
   }
-  console.log(subsets)
-  console.log(subsetCounter)
   return subsets
 }
 // THIS CODE IS IN PART CONTRIBUTED TO YASH AGARWAL(YASHAGARWAL2852002)
@@ -46,11 +47,11 @@ function bitCount(num) {
 
 //Generate an array of permutation objects
 export function generatePermutations(subset) {
-  const arr = subset
-
+  const arr = subset.subset
   let res = [[]]
+  let permutations = []
 
-  //generate a 2d array of permutations
+  //generate array of permutations
   for (let num of arr) {
     const temp = []
     for (let arr of res) {
@@ -63,7 +64,18 @@ export function generatePermutations(subset) {
     res = temp
   }
 
-  return res
+  //add identifiers to each permutation
+  for (let i = 0; i < res.length; i++) {
+    permutations.push({
+      permutation: res[i],
+      permutationGroup: i,
+      subsetString: subset.subsetString,
+      duplicateSubset: subset.duplicateSubset,
+      subsetGroup: subset.subsetGroup,
+    })
+  }
+
+  return permutations
 }
 
 export function randomizeArray(array) {
