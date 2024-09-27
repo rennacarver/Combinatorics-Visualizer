@@ -275,14 +275,14 @@ function App() {
                 ? 'Duplicates Label: ON'
                 : 'Duplicates Label: OFF'}
             </span>
-            <span
+            {/* <span
               onClick={handleHighlightSubsetsChange}
               style={{ cursor: 'pointer' }}
             >
               {isHighlightSubsets
                 ? 'Highlight Combinations: ON'
                 : 'Highlight Combinations: OFF'}
-            </span>
+            </span> */}
             <div className='night-mode-button'>
               <NightModeButton></NightModeButton>
             </div>
