@@ -16,20 +16,20 @@ const Permutation = ({
 }) => {
   let style = {}
 
-  if (rValue === 1)
+  if (Number(rValue) === 1)
     style = {
-      width: `80vw`,
-      fontSize: `${30 / rValue}vw`,
+      width: `fit-content`,
+      fontSize: `${15 / rValue}vw`,
     }
-  else if (rValue === 2)
+  else if (Number(rValue) === 2)
     style = {
-      width: `40vw`,
-      fontSize: `${30 / rValue}vw`,
+      width: `fit-content`,
+      fontSize: `${15 / rValue}vw`,
     }
   else
     style = {
-      width: `30vw`,
-      fontSize: `${30 / rValue}vw`,
+      width: `fit-content`,
+      fontSize: `${15 / rValue}vw`,
     }
 
   return (

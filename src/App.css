@@ -124,6 +124,7 @@ input {
 
 .logo-div {
   margin-top: 0.5vw;
+  height: 5vw;
 }
 
 .title-div {
@@ -225,6 +226,8 @@ td {
 
 tr.slot-letter:first-child {
   border-bottom: 0.1em solid var(--text-secondary);
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .slots {
@@ -246,13 +249,12 @@ table.slot-table {
 
 /*Options Footer*/
 .options-span {
-  font-size: 1em;
+  font-size: calc(12px + 0.5vw);
 }
 
 /* Permutation */
 .permutation {
-  font-size: 3vw;
-  padding: 20px;
+  padding: 0.5em;
   text-align: center;
   flex-wrap: nowrap;
 }

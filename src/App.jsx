@@ -142,10 +142,6 @@ function App() {
 
       setPermutations(subsetPermutations)
       if (subsetPermutations.length === 0) setResultText('No result')
-
-      //Set permutations count to 0 if no result
-      setPermCount(subsetPermutations.length)
-      setCombCount(subsets.length)
     }
   }, [rValue, userString, theme])
 
@@ -247,7 +243,7 @@ function App() {
                 key={index}
                 permutation={permutation.permutation}
                 colorMap={colorMap}
-                rValue={nValue}
+                rValue={rValue}
                 permCount={permCount}
                 subsetGroup={permutation.subsetGroup}
                 permutationGroup={permutation.permutationGroup}
@@ -266,7 +262,7 @@ function App() {
           <hr></hr>
           <div className='flex flex-space-between flex-align-center logo-div'>
             <div className='flex flex-align-center'>
-              <a href='https://www.projectcarver.com'>
+              <a target='_blank' href='https://www.projectcarver.com'>
                 <img src={logo} alt='project carver logo' />
               </a>
               <span className='beta'>BETA</span>
