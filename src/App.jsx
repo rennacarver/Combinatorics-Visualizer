@@ -65,7 +65,6 @@ function App() {
 
       if (graphemeCounter[grapheme] > 1) {
         setDuplicatesDetected(true)
-        console.log('duplicates detected!')
       }
 
       tempArray.push({
@@ -135,7 +134,6 @@ function App() {
       tempColorMap[currentKey] = currentVal
     }
 
-    console.log(tempColorMap)
     setColorMap(tempColorMap)
 
     if (tempPermCount > 1000) {
