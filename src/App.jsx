@@ -14,7 +14,6 @@ import {
   randomizeArray,
   factorial,
 } from './Util/helperFunctions'
-import PermutationCounter from './components/PermutationCounter/PermutationCounter'
 import { lightColorArray, darkColorArray } from './Util/colorArrays'
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
 
   //States
   const [colorArrayState, setColorArrayState] = useState(
-    theme === 'dark-theme' ? darkColorArray : lightColorArray
+    theme === 'dark-theme' ? lightColorArray : darkColorArray
   )
   const [resultText, setResultText] = useState('No Result')
   const [userString, setUserString] = useState('')
@@ -40,7 +39,8 @@ function App() {
   const [combCount, setCombCount] = useState(0)
   const [isPermutationMode, setPermutationMode] = useState(true)
   const [isUppercase, setIsUppercase] = useState(true)
-  const [isDuplicatesMode, setIsDuplicatesMode] = useState(false)
+  const [isDuplicatesMode, setIsDuplicatesMode] = useState(true)
+  const [duplicatesDetected, setDuplicatesDetected] = useState(false)
   const [isHighlightSubsets, setIsHighlightSubsets] = useState(false)
   const [userStringLength, setUserStringLength] = useState(0)
 
@@ -55,12 +55,18 @@ function App() {
     const stringLength = stringArray.length
 
     //Convert array of graphemes into array of objects
+    setDuplicatesDetected(false)
     let graphemeCounter = {}
     let tempArray = []
     for (let i = 0; i < stringLength; i++) {
       let grapheme = stringArray[i]
       if (!graphemeCounter[grapheme]) graphemeCounter[grapheme] = 1
       else graphemeCounter[grapheme] += 1
+
+      if (graphemeCounter[grapheme] > 1) {
+        setDuplicatesDetected(true)
+        console.log('duplicates detected!')
+      }
 
       tempArray.push({
         value: stringArray[i],
@@ -99,20 +105,38 @@ function App() {
     setIsHighlightSubsets(!isHighlightSubsets)
   }
 
-  //Change color array when dark mode is toggled
-  useEffect(() => {
-    if (theme === 'dark-theme') setColorArrayState(darkColorArray)
-    else setColorArrayState(lightColorArray)
-  }, [theme])
-
   //Generate permutations when the r-value or userString is updated
   useEffect(() => {
+    let colorArrayStateTemp = {}
+    if (theme === 'dark-theme') {
+      setColorArrayState(darkColorArray)
+      colorArrayStateTemp = darkColorArray
+    } else {
+      setColorArrayState(lightColorArray)
+      colorArrayStateTemp = lightColorArray
+    }
+
     //Halt generation if results exceed 1,000
     const tempPermCount = factorial(nValue) / factorial(nValue - rValue)
     const tempCombCount =
       factorial(nValue) / (factorial(rValue) * factorial(nValue - rValue))
     setPermCount(tempPermCount)
     setCombCount(tempCombCount)
+
+    //create unit-color map linking each unit to a unique color
+    let currentKey
+    let currentVal
+    let tempColorMap = {}
+    const randomColorArray = randomizeArray(colorArrayStateTemp)
+
+    for (let i = 0; i < userStringLength; i++) {
+      currentKey = userStringArray[i]
+      currentVal = randomColorArray[i]
+      tempColorMap[currentKey] = currentVal
+    }
+
+    console.log(tempColorMap)
+    setColorMap(tempColorMap)
 
     if (tempPermCount > 1000) {
       setPermutations([])
@@ -130,19 +154,9 @@ function App() {
       setPermutations(subsetPermutations)
       if (subsetPermutations.length === 0) setResultText('No result')
 
-      //create unit-color map linking each unit to a unique color
-      let currentKey
-      let currentVal
-      let tempColorMap = {}
-      const randomColorArray = randomizeArray(colorArrayState)
-
-      for (let i = 0; i < userStringLength; i++) {
-        currentKey = userStringArray[i]
-        currentVal = randomColorArray[i]
-        tempColorMap[currentKey] = currentVal
-      }
-
-      setColorMap(tempColorMap)
+      //Set permutations count to 0 if no result
+      setPermCount(subsetPermutations.length)
+      setCombCount(subsets.length)
     }
   }, [rValue, userString, theme])
 
@@ -164,7 +178,7 @@ function App() {
                 />
               </form>
             </div>
-            <div className='top-bar flex'>
+            <div className='top-bar flex flex-space-between'>
               <div className='notation flex flex-align-center'>
                 <h2>
                   <span className='sub'>{nValue === 0 ? 'n' : nValue} </span>
@@ -213,6 +227,22 @@ function App() {
                 </table>
               </div>
 
+              <div className='flex-start flex formula-result'>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td> = {isPermutationMode ? permCount : combCount}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
               <div className='slots flex-start flex'>
                 {userStringArray.map((unit, index) => (
                   <Slot key={index} value={unit} color={colorMap[unit]} />
@@ -253,21 +283,22 @@ function App() {
               </a>
               <span className='beta'>BETA</span>
             </div>
-            <span className='perm'>
-              {/* {isPermutationMode ? Total Permutations: {permCount} : Total Combinations : {combCount}} */}
-              <PermutationCounter
-                isPermutationMode={isPermutationMode}
-                permCount={permCount}
-                combCount={combCount}
-              ></PermutationCounter>
-            </span>
-            <span onClick={handlePermModeChange} style={{ cursor: 'pointer' }}>
+            <span
+              className='options-span'
+              onClick={handlePermModeChange}
+              style={{ cursor: 'pointer' }}
+            >
               {isPermutationMode ? 'Mode: Permutations' : 'Mode: Combinations'}
             </span>
-            <span onClick={handleCaseModeChange} style={{ cursor: 'pointer' }}>
+            <span
+              className='options-span'
+              onClick={handleCaseModeChange}
+              style={{ cursor: 'pointer' }}
+            >
               {isUppercase ? 'Uppercase ON' : 'Uppercase OFF'}
             </span>
             <span
+              className='options-span'
               onClick={handleDuplicatesModeChange}
               style={{ cursor: 'pointer' }}
             >
