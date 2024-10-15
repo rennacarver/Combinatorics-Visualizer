@@ -71,7 +71,6 @@ function App() {
     }
 
     setGraphemeArray(tempArray)
-
     setUserString(stringArray.join(''))
     setUserStringArray(stringArray)
     setUserStringLength(stringLength)
