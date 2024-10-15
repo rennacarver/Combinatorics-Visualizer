@@ -15,6 +15,7 @@ import {
   factorial,
 } from './Util/helperFunctions'
 import { lightColorArray, darkColorArray } from './Util/colorArrays'
+import DuplicatesModeButton from './components/DuplicatesModeButton/DuplicatesModeButton'
 
 function App() {
   //Constants
@@ -24,9 +25,6 @@ function App() {
   let splitter = new Graphemer()
 
   //States
-  const [colorArrayState, setColorArrayState] = useState(
-    theme === 'dark-theme' ? lightColorArray : darkColorArray
-  )
   const [resultText, setResultText] = useState('No Result')
   const [userString, setUserString] = useState('')
   const [userStringArray, setUserStringArray] = useState([])
@@ -106,13 +104,11 @@ function App() {
 
   //Generate permutations when the r-value or userString is updated
   useEffect(() => {
-    let colorArrayStateTemp = {}
+    let colorArrayState = {}
     if (theme === 'dark-theme') {
-      setColorArrayState(darkColorArray)
-      colorArrayStateTemp = darkColorArray
+      colorArrayState = darkColorArray
     } else {
-      setColorArrayState(lightColorArray)
-      colorArrayStateTemp = lightColorArray
+      colorArrayState = lightColorArray
     }
 
     //Halt generation if results exceed 1,000
@@ -126,7 +122,7 @@ function App() {
     let currentKey
     let currentVal
     let tempColorMap = {}
-    const randomColorArray = randomizeArray(colorArrayStateTemp)
+    const randomColorArray = randomizeArray(colorArrayState)
 
     for (let i = 0; i < userStringLength; i++) {
       currentKey = userStringArray[i]
@@ -295,15 +291,15 @@ function App() {
             >
               {isUppercase ? 'Uppercase ON' : 'Uppercase OFF'}
             </span>
-            <span
-              className='options-span'
-              onClick={handleDuplicatesModeChange}
-              style={{ cursor: 'pointer' }}
-            >
-              {isDuplicatesMode
-                ? 'Duplicates Label: ON'
-                : 'Duplicates Label: OFF'}
-            </span>
+            {duplicatesDetected ? (
+              <DuplicatesModeButton
+                duplicatesDetected={duplicatesDetected}
+                isDuplicatesMode={isDuplicatesMode}
+                handleDuplicatesModeChange={handleDuplicatesModeChange}
+              ></DuplicatesModeButton>
+            ) : (
+              ''
+            )}
             {/* <span
               onClick={handleHighlightSubsetsChange}
               style={{ cursor: 'pointer' }}
