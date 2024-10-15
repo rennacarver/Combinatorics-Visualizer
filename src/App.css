@@ -131,7 +131,7 @@ input {
 }
 
 div.bottom-padding {
-  padding: 50px;
+  padding: 2vw;
 }
 
 .mode-selectors-div {
@@ -176,6 +176,7 @@ div.bottom-padding {
 }
 
 .notation {
+  margin-right: 4vw;
 }
 
 .notation > h2 {
@@ -192,7 +193,7 @@ div.bottom-padding {
 
 .formula-result {
   white-space: nowrap;
-  margin-right: 3vw;
+  margin-right: 4vw;
 }
 
 .slots {

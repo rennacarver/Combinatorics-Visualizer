@@ -6,7 +6,7 @@ import { lightColorArray, darkColorArray } from '../../Util/colorArrays'
 const Permutation = ({
   permutation,
   colorMap,
-  nValue,
+  rValue,
   permCount,
   permutationGroup,
   subsetGroup,
@@ -16,20 +16,20 @@ const Permutation = ({
 }) => {
   let style = {}
 
-  if (permCount === 1)
+  if (rValue === 1)
     style = {
-      width: `100%`,
-      fontSize: `${30 / permCount}vw`,
+      width: `80vw`,
+      fontSize: `${30 / rValue}vw`,
     }
-  else if (permCount === 2)
+  else if (rValue === 2)
     style = {
-      width: `35%`,
-      fontSize: `${30 / permCount}vw`,
+      width: `40vw`,
+      fontSize: `${30 / rValue}vw`,
     }
   else
     style = {
-      width: `${200 / permCount}vw`,
-      fontSize: `${40 / permCount}vw`,
+      width: `30vw`,
+      fontSize: `${30 / rValue}vw`,
     }
 
   return (

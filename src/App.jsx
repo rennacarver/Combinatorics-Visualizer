@@ -39,7 +39,6 @@ function App() {
   const [isUppercase, setIsUppercase] = useState(true)
   const [isDuplicatesMode, setIsDuplicatesMode] = useState(true)
   const [duplicatesDetected, setDuplicatesDetected] = useState(false)
-  const [isHighlightSubsets, setIsHighlightSubsets] = useState(false)
   const [userStringLength, setUserStringLength] = useState(0)
 
   //Handler functions
@@ -96,10 +95,6 @@ function App() {
 
   const handleDuplicatesModeChange = () => {
     setIsDuplicatesMode(!isDuplicatesMode)
-  }
-
-  const handleHighlightSubsetsChange = () => {
-    setIsHighlightSubsets(!isHighlightSubsets)
   }
 
   //Generate permutations when the r-value or userString is updated
@@ -172,7 +167,7 @@ function App() {
                 />
               </form>
             </div>
-            <div className='top-bar flex flex-space-between'>
+            <div className='top-bar flex flex-start'>
               <div className='notation flex flex-align-center'>
                 <h2>
                   <span className='sub'>{nValue === 0 ? 'n' : nValue} </span>
@@ -190,8 +185,8 @@ function App() {
                       value={rValue}
                       onChange={handleRChange}
                       id='rInput'
-                      placeholder='set r...'
-                      maxLength='1'
+                      placeholder='r'
+                      maxLength='2'
                     />
                   </form>
                 </h2>
@@ -252,13 +247,12 @@ function App() {
                 key={index}
                 permutation={permutation.permutation}
                 colorMap={colorMap}
-                nValue={nValue}
+                rValue={nValue}
                 permCount={permCount}
                 subsetGroup={permutation.subsetGroup}
                 permutationGroup={permutation.permutationGroup}
                 isPermutationMode={isPermutationMode}
                 isDuplicatesMode={isDuplicatesMode}
-                isHighlightSubsets={isHighlightSubsets}
               />
             ))}
           </div>
@@ -300,14 +294,6 @@ function App() {
             ) : (
               ''
             )}
-            {/* <span
-              onClick={handleHighlightSubsetsChange}
-              style={{ cursor: 'pointer' }}
-            >
-              {isHighlightSubsets
-                ? 'Highlight Combinations: ON'
-                : 'Highlight Combinations: OFF'}
-            </span> */}
             <div className='night-mode-button'>
               <NightModeButton></NightModeButton>
             </div>
