@@ -313,9 +313,9 @@ svg {
 
 /* Mobile */
 @media screen and (max-width: 600px) {
-  .top-padding {
+  /* .top-padding {
     padding: 0px;
-  }
+  } */
   .modes-div {
     margin-top: 25px;
     align-items: center;
