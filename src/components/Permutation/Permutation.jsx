@@ -13,24 +13,12 @@ const Permutation = ({
   isPermutationMode,
   isDuplicatesMode,
   isHighlightSubsets,
+  sliderValue,
 }) => {
-  let style = {}
-
-  if (Number(rValue) === 1)
-    style = {
-      width: `fit-content`,
-      fontSize: `${15 / rValue}vw`,
-    }
-  else if (Number(rValue) === 2)
-    style = {
-      width: `fit-content`,
-      fontSize: `${15 / rValue}vw`,
-    }
-  else
-    style = {
-      width: `fit-content`,
-      fontSize: `${15 / rValue}vw`,
-    }
+  let style = {
+    width: `fit-content`,
+    fontSize: `min(${((15 / rValue) * sliderValue) / 100}vw, 70px)`,
+  }
 
   return (
     <>

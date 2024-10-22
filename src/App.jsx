@@ -27,6 +27,7 @@ function App() {
   //States
   const [resultText, setResultText] = useState('No Result')
   const [userString, setUserString] = useState('')
+  const [sliderValue, setSliderValue] = useState(100)
   const [userStringArray, setUserStringArray] = useState([])
   const [graphemeArray, setGraphemeArray] = useState([])
   const [nValue, setNValue] = useState(0)
@@ -76,6 +77,11 @@ function App() {
     setUserStringLength(stringLength)
     setNValue(stringLength)
     setRValue(stringLength)
+    setSliderValue(100)
+  }
+
+  const handleSliderChange = (event) => {
+    setSliderValue(event.target.value)
   }
 
   const handleRChange = (event) => {
@@ -161,6 +167,19 @@ function App() {
                   placeholder='enter a string...'
                 />
               </form>
+              <div className='slidecontainer flex flex-start flex-align-center'>
+                <span className='smaller-font-size-label'>A</span>
+                <input
+                  type='range'
+                  min='q0'
+                  max='100'
+                  value={sliderValue}
+                  onChange={handleSliderChange}
+                  className='slider'
+                  id='myRange'
+                />
+                <span className='larger-font-size-label'>A</span>
+              </div>
             </div>
             <div className='top-bar flex flex-start'>
               <div className='notation flex flex-align-center'>
@@ -248,6 +267,7 @@ function App() {
                 permutationGroup={permutation.permutationGroup}
                 isPermutationMode={isPermutationMode}
                 isDuplicatesMode={isDuplicatesMode}
+                sliderValue={sliderValue}
               />
             ))}
           </div>
@@ -266,30 +286,34 @@ function App() {
               </a>
               <span className='beta'>BETA</span>
             </div>
-            <span
-              className='options-span'
-              onClick={handlePermModeChange}
-              style={{ cursor: 'pointer' }}
-            >
-              {isPermutationMode ? 'Mode: Permutations' : 'Mode: Combinations'}
-            </span>
-            <span
-              className='options-span'
-              onClick={handleCaseModeChange}
-              style={{ cursor: 'pointer' }}
-            >
-              {isUppercase ? 'Uppercase ON' : 'Uppercase OFF'}
-            </span>
-            {duplicatesDetected ? (
-              <DuplicatesModeButton
-                duplicatesDetected={duplicatesDetected}
-                isDuplicatesMode={isDuplicatesMode}
-                handleDuplicatesModeChange={handleDuplicatesModeChange}
-              ></DuplicatesModeButton>
-            ) : (
-              ''
-            )}
-            <div className='night-mode-button'>
+            <div className='modes-div flex flex-space-evenly'>
+              <span
+                className='options-span'
+                onClick={handlePermModeChange}
+                style={{ cursor: 'pointer' }}
+              >
+                {isPermutationMode
+                  ? 'Mode: Permutations'
+                  : 'Mode: Combinations'}
+              </span>
+              <span
+                className='options-span'
+                onClick={handleCaseModeChange}
+                style={{ cursor: 'pointer' }}
+              >
+                {isUppercase ? 'Uppercase ON' : 'Uppercase OFF'}
+              </span>
+              {duplicatesDetected ? (
+                <DuplicatesModeButton
+                  duplicatesDetected={duplicatesDetected}
+                  isDuplicatesMode={isDuplicatesMode}
+                  handleDuplicatesModeChange={handleDuplicatesModeChange}
+                ></DuplicatesModeButton>
+              ) : (
+                ''
+              )}
+            </div>
+            <div className='night-mode-button' style={{ cursor: 'pointer' }}>
               <NightModeButton></NightModeButton>
             </div>
           </div>
