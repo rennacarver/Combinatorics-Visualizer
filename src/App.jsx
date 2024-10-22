@@ -27,7 +27,7 @@ function App() {
   //States
   const [resultText, setResultText] = useState('No Result')
   const [userString, setUserString] = useState('')
-  const [sliderValue, setSliderValue] = useState(50)
+  const [sliderValue, setSliderValue] = useState(100)
   const [userStringArray, setUserStringArray] = useState([])
   const [graphemeArray, setGraphemeArray] = useState([])
   const [nValue, setNValue] = useState(0)
@@ -77,6 +77,7 @@ function App() {
     setUserStringLength(stringLength)
     setNValue(stringLength)
     setRValue(stringLength)
+    setSliderValue(100)
   }
 
   const handleSliderChange = (event) => {
@@ -166,16 +167,18 @@ function App() {
                   placeholder='enter a string...'
                 />
               </form>
-              <div className='slidecontainer'>
+              <div className='slidecontainer flex flex-start flex-align-center'>
+                <span className='smaller-font-size-label'>A</span>
                 <input
                   type='range'
-                  min='1'
+                  min='q0'
                   max='100'
                   value={sliderValue}
                   onChange={handleSliderChange}
                   className='slider'
                   id='myRange'
                 />
+                <span className='larger-font-size-label'>A</span>
               </div>
             </div>
             <div className='top-bar flex flex-start'>
