@@ -76,7 +76,7 @@ h1 {
 
 img {
   height: auto;
-  width: 2.5vw;
+  width: calc(15px + 0.75vw);
 }
 
 .beta {
@@ -88,6 +88,9 @@ img {
 form {
   display: inline;
 }
+
+/*Remove Arrows from Number Field Input*/
+/* Chrome, Safari, Edge, Opera */
 
 input {
   background-color: var(--bg-secondary);
@@ -103,7 +106,8 @@ input {
 #rInput {
   position: relative;
   top: 10px;
-  width: 3vw;
+  left: 3px;
+  width: calc(20px + 2vw);
 }
 
 .small {
@@ -176,8 +180,13 @@ div.bottom-padding {
   justify-content: space-between;
 }
 
+.flex-space-evenly {
+  justify-content: space-evenly;
+}
+
 .notation {
-  margin-right: 4vw;
+  margin-right: 3.5vw;
+  white-space: nowrap;
 }
 
 .notation > h2 {
@@ -214,12 +223,17 @@ table {
 
 .formula tr:first-child {
   border-bottom: 1pt solid var(--text-primary);
+  vertical-align: bottom;
+}
+
+.formula tr:last-child {
+  vertical-align: top;
 }
 
 td {
   font-size: 2.25vw;
   text-align: center;
-  vertical-align: center;
+  /* vertical-align: center; */
 }
 
 /* Slots */
@@ -236,7 +250,7 @@ tr.slot-letter:first-child {
 }
 
 td.slot-letter {
-  font-size: 3em;
+  font-size: min(3vw, 40px);
 }
 
 div.slot-letter {
@@ -268,7 +282,7 @@ table.slot-table {
 }
 
 svg {
-  width: 1.5vw;
+  width: calc(15px + 0.75vw);
   height: auto;
 }
 
@@ -294,8 +308,20 @@ svg {
   }
 }
 
-/* Mobile */
-/* @media screen and (max-width: 400px) {
-    
+.modes-div {
+  width: 100%;
+  padding: 0 6vw;
 }
-   */
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+  .top-padding {
+    padding: 0px;
+  }
+  .modes-div {
+    margin-top: 25px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+}
