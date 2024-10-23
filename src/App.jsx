@@ -240,8 +240,8 @@ function App() {
                 <span className='smaller-font-size-label'>A</span>
                 <input
                   type='range'
-                  min='10'
-                  max='150'
+                  min='1'
+                  max='200'
                   value={sliderValue}
                   onChange={handleSliderChange}
                   className='slider'
