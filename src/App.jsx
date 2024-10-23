@@ -18,6 +18,7 @@ import {
 import { lightColorArray, darkColorArray } from './Util/colorArrays'
 import DuplicatesModeButton from './components/DuplicatesModeButton/DuplicatesModeButton'
 import ShowMaxResults from './components/ShowMaxResults/ShowMaxResults'
+import HidePermutationsButton from './components/HidePermutationsButton/HidePermutationsButton'
 
 function App() {
   //Constants
@@ -45,6 +46,7 @@ function App() {
   const [userStringLength, setUserStringLength] = useState(0)
   const [isResultTooLarge, setIsResultTooLarge] = useState(false)
   const [maxResultSize, setMaxResultSize] = useState(1000)
+  const [isPermutationsHidden, setIsPermutationsHidden] = useState(false)
 
   //Handler functions
   const handleStringChange = (event) => {
@@ -83,6 +85,12 @@ function App() {
     setRValue(stringLength)
     setSliderValue(100)
     setMaxResultSize(1000)
+  }
+
+  const handleHidePermutations = () => {
+    setPermutations([])
+    setResultText('Loading...')
+    setIsPermutationsHidden(!isPermutationsHidden)
   }
 
   const handleIncreaseResult = () => {
@@ -146,14 +154,22 @@ function App() {
     //Generate an array of subsets
     let subsets = findSubsets(graphemeArray, rValue)
 
-    //Generate permutations of subsets
-    if (tempPermCount < upperBound) {
+    //Generate list of permutations of combinations
+    if (tempPermCount < upperBound && !isPermutationsHidden) {
       let subsetPermutations = []
       subsets.map((subset) =>
         subsetPermutations.push(...generatePermutations(subset))
       )
       setPermutations(subsetPermutations)
       if (subsetPermutations.length === 0) setResultText('No result')
+      setIsResultTooLarge(false)
+    } else if (tempPermCount < upperBound && isPermutationsHidden) {
+      let subsetPermutations = []
+      subsets.map((subset) =>
+        subsetPermutations.push(...formatPermutations(subset))
+      )
+      setPermutations(subsetPermutations)
+      if (subsets.length === 0) setResultText('No result')
       setIsResultTooLarge(false)
     } else if (tempPermCount > upperBound && !isPermutationMode) {
       let subsetPermutations = []
@@ -165,10 +181,17 @@ function App() {
       setIsResultTooLarge(true)
     } else {
       setPermutations([])
-      setResultText('Result too large')
+      setResultText('Large result')
       setIsResultTooLarge(true)
     }
-  }, [rValue, userString, theme, isPermutationMode, maxResultSize])
+  }, [
+    rValue,
+    userString,
+    theme,
+    isPermutationMode,
+    maxResultSize,
+    isPermutationsHidden,
+  ])
 
   return (
     <>
@@ -192,7 +215,7 @@ function App() {
                 <input
                   type='range'
                   min='10'
-                  max='400'
+                  max='150'
                   value={sliderValue}
                   onChange={handleSliderChange}
                   className='slider'
@@ -341,6 +364,15 @@ function App() {
                 ></DuplicatesModeButton>
               ) : (
                 ''
+              )}
+              {isPermutationMode ? (
+                ''
+              ) : (
+                <div onClick={handleHidePermutations}>
+                  <HidePermutationsButton
+                    isPermutationsHidden={isPermutationsHidden}
+                  />
+                </div>
               )}
             </div>
             <div className='night-mode-button' style={{ cursor: 'pointer' }}>

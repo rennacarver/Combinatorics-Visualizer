@@ -35,6 +35,7 @@
   --bg-primary: var(--bg-primary-dark);
   --bg-secondary: var(--bg-secondary-dark);
   --bg-border: var(var(--bg-border-dark));
+  --warning-red: darkred;
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
@@ -45,6 +46,7 @@
   --bg-primary: var(--bg-primary-light);
   --bg-secondary: var(--bg-secondary-light);
   --bg-border: var(var(--bg-border-light));
+  --warning-red: #cc1506;
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
@@ -245,7 +247,7 @@ td {
 
 p.see-all-results {
   cursor: pointer;
-  color: darkred;
+  color: var(--warning-red);
   font-size: calc(5px+0.2vw);
   display: block;
   margin: 0 auto;
