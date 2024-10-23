@@ -83,8 +83,11 @@ function App() {
     setUserStringLength(stringLength)
     setNValue(stringLength)
     setRValue(stringLength)
-    setSliderValue(100)
     setMaxResultSize(1000)
+  }
+
+  const handleSlotClick = (event) => {
+    console.log(event)
   }
 
   const handleHidePermutations = () => {
@@ -291,7 +294,12 @@ function App() {
 
               <div className='slots flex-start flex'>
                 {userStringArray.map((unit, index) => (
-                  <Slot key={index} value={unit} color={colorMap[unit]} />
+                  <Slot
+                    key={index}
+                    value={unit}
+                    color={colorMap[unit]}
+                    handleSlotClick={handleSlotClick}
+                  />
                 ))}
               </div>
             </div>{' '}
