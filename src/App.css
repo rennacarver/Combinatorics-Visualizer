@@ -236,6 +236,21 @@ td {
   /* vertical-align: center; */
 }
 
+/*Result Text*/
+.result-text {
+  font-size: calc(12px + 0.5vw);
+  margin: auto;
+  font-weight: 200px;
+}
+
+p.see-all-results {
+  cursor: pointer;
+  color: red;
+  font-size: calc (8px+0.5vw);
+  display: block;
+  margin: auto;
+}
+
 /* Slots */
 
 tr.slot-letter:first-child {

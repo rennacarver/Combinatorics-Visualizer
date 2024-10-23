@@ -74,7 +74,21 @@ export function generatePermutations(subset) {
       subsetGroup: subset.subsetGroup,
     })
   }
+  return permutations
+}
 
+//take subsets and format into permutation data type
+export function formatPermutations(subset) {
+  let permutations = []
+
+  //add identifiers to each permutation
+  permutations.push({
+    permutation: subset.subset,
+    permutationGroup: null,
+    subsetString: subset.subsetString,
+    duplicateSubset: subset.duplicateSubset,
+    subsetGroup: subset.subsetGroup,
+  })
   return permutations
 }
 

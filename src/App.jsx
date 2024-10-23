@@ -13,9 +13,11 @@ import {
   generatePermutations,
   randomizeArray,
   factorial,
+  formatPermutations,
 } from './Util/helperFunctions'
 import { lightColorArray, darkColorArray } from './Util/colorArrays'
 import DuplicatesModeButton from './components/DuplicatesModeButton/DuplicatesModeButton'
+import ShowMaxResults from './components/ShowMaxResults/ShowMaxResults'
 
 function App() {
   //Constants
@@ -41,6 +43,8 @@ function App() {
   const [isDuplicatesMode, setIsDuplicatesMode] = useState(true)
   const [duplicatesDetected, setDuplicatesDetected] = useState(false)
   const [userStringLength, setUserStringLength] = useState(0)
+  const [isResultTooLarge, setIsResultTooLarge] = useState(false)
+  const [maxResultSize, setMaxResultSize] = useState(1000)
 
   //Handler functions
   const handleStringChange = (event) => {
@@ -78,6 +82,11 @@ function App() {
     setNValue(stringLength)
     setRValue(stringLength)
     setSliderValue(100)
+    setMaxResultSize(1000)
+  }
+
+  const handleIncreaseResult = () => {
+    setMaxResultSize(permCount + 1)
   }
 
   const handleSliderChange = (event) => {
@@ -111,7 +120,7 @@ function App() {
       colorArrayState = lightColorArray
     }
 
-    //Halt generation if results exceed 1,000
+    //Halt generation if results exceed maxResultSize
     const tempPermCount = factorial(nValue) / factorial(nValue - rValue)
     const tempCombCount =
       factorial(nValue) / (factorial(rValue) * factorial(nValue - rValue))
@@ -119,6 +128,7 @@ function App() {
     setCombCount(tempCombCount)
 
     //create unit-color map linking each unit to a unique color
+    let upperBound = maxResultSize
     let currentKey
     let currentVal
     let tempColorMap = {}
@@ -132,23 +142,32 @@ function App() {
 
     setColorMap(tempColorMap)
 
-    if (tempPermCount > 1000) {
-      setPermutations([])
-      setResultText('Result too large')
-    } else {
-      //Generate an array of subsets
-      let subsets = findSubsets(graphemeArray, rValue)
+    //Generate an array of subsets
+    let subsets = findSubsets(graphemeArray, rValue)
 
-      //Generate permutations of subsets
+    //Generate permutations of subsets
+    if (tempPermCount < upperBound) {
       let subsetPermutations = []
       subsets.map((subset) =>
         subsetPermutations.push(...generatePermutations(subset))
       )
-
       setPermutations(subsetPermutations)
       if (subsetPermutations.length === 0) setResultText('No result')
+      setIsResultTooLarge(false)
+    } else if (tempPermCount > upperBound && !isPermutationMode) {
+      let subsetPermutations = []
+      subsets.map((subset) =>
+        subsetPermutations.push(...formatPermutations(subset))
+      )
+      setPermutations(subsetPermutations)
+      if (subsets.length === 0) setResultText('No result')
+      setIsResultTooLarge(true)
+    } else {
+      setPermutations([])
+      setResultText('Result too large')
+      setIsResultTooLarge(true)
     }
-  }, [rValue, userString, theme])
+  }, [rValue, userString, theme, isPermutationMode, maxResultSize])
 
   return (
     <>
@@ -171,8 +190,8 @@ function App() {
                 <span className='smaller-font-size-label'>A</span>
                 <input
                   type='range'
-                  min='q0'
-                  max='100'
+                  min='10'
+                  max='400'
                   value={sliderValue}
                   onChange={handleSliderChange}
                   className='slider'
@@ -274,9 +293,16 @@ function App() {
           {permutations.length !== 0 ? (
             ''
           ) : (
-            <div className={'bottom-padding flex flex-row flex-wrap'}>
-              <h3>{resultText}</h3>
+            <div className={'bottom-padding flex flex-column flex-wrap'}>
+              <h2 className='result-text'>{resultText}</h2>
             </div>
+          )}
+          {isResultTooLarge ? (
+            <ShowMaxResults
+              handleIncreaseResult={handleIncreaseResult}
+            ></ShowMaxResults>
+          ) : (
+            ''
           )}
           <hr></hr>
           <div className='flex flex-space-between flex-align-center logo-div'>

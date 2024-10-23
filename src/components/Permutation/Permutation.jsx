@@ -1,18 +1,14 @@
 import React from 'react'
 import './Permutation.css'
 import PermutationUnit from '../PermutationUnit/PermutationUnit'
-import { lightColorArray, darkColorArray } from '../../Util/colorArrays'
 
 const Permutation = ({
   permutation,
   colorMap,
   rValue,
-  permCount,
   permutationGroup,
-  subsetGroup,
   isPermutationMode,
   isDuplicatesMode,
-  isHighlightSubsets,
   sliderValue,
 }) => {
   let style = {
