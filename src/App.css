@@ -65,7 +65,7 @@ h1 {
 
 img {
   height: auto;
-  width: calc(15px + 0.75vw);
+  width: calc(25px + 0.75vw);
 }
 
 .beta {
@@ -250,6 +250,7 @@ td.slot-letter {
 
 div.slot-letter {
   padding: 0.25em;
+  cursor: pointer;
 }
 
 table.slot-table {
