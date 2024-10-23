@@ -3,8 +3,7 @@ import React from 'react'
 const ShowMaxResults = ({ handleIncreaseResult, permCount }) => {
   return (
     <p className='see-all-results' onClick={handleIncreaseResult}>
-      Click to see all results ({permCount} results) (warning: browser slowdown
-      ahead)
+      Click to see all {permCount} results - browser may slow down or crash
     </p>
   )
 }

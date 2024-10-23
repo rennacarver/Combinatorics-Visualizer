@@ -53,7 +53,7 @@ function App() {
       stringArray = splitter.splitGraphemes(event.target.value.toUpperCase())
     else stringArray = splitter.splitGraphemes(event.target.value)
 
-    if (stringArray.length > 10) stringArray = stringArray.slice(0, 10)
+    if (stringArray.length > 15) stringArray = stringArray.slice(0, 15)
     const stringLength = stringArray.length
 
     //Convert array of graphemes into array of objects
@@ -86,6 +86,7 @@ function App() {
   }
 
   const handleIncreaseResult = () => {
+    setResultText('Loading...')
     setMaxResultSize(permCount + 1)
   }
 
@@ -297,14 +298,16 @@ function App() {
               <h2 className='result-text'>{resultText}</h2>
             </div>
           )}
-          {isResultTooLarge ? (
-            <ShowMaxResults
-              handleIncreaseResult={handleIncreaseResult}
-              permCount={permCount}
-            ></ShowMaxResults>
-          ) : (
-            ''
-          )}
+          <div className='see-all-results flex align-items-center'>
+            {isResultTooLarge ? (
+              <ShowMaxResults
+                handleIncreaseResult={handleIncreaseResult}
+                permCount={permCount}
+              ></ShowMaxResults>
+            ) : (
+              ''
+            )}
+          </div>
           <hr></hr>
           <div className='flex flex-space-between flex-align-center logo-div'>
             <div className='flex flex-align-center'>

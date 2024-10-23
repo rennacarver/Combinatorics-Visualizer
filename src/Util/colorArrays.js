@@ -6,9 +6,14 @@ export const darkColorArray = [
   '#EB7814',
   '#EC66AB',
   '#B461D3',
-  '#C36F44',
+  '#80350E',
   '#5F72FA',
   '#44C3AE',
+  '#FFFFFF',
+  '#3B7D23',
+  '#78206E',
+  '#FFC7A4',
+  '#8E8E8E',
 ]
 
 export const lightColorArray = [
@@ -22,4 +27,9 @@ export const lightColorArray = [
   '#C36F44',
   '#5F72FA',
   '#67ECEA',
+  '#3B7D23',
+  '#78206E',
+  '#80350E',
+  '#8E8E8E',
+  '#FFC7A4',
 ]
