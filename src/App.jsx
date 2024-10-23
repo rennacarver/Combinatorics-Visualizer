@@ -300,6 +300,7 @@ function App() {
           {isResultTooLarge ? (
             <ShowMaxResults
               handleIncreaseResult={handleIncreaseResult}
+              permCount={permCount}
             ></ShowMaxResults>
           ) : (
             ''
