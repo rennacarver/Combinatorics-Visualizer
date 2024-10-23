@@ -113,6 +113,7 @@ function App() {
 
   const handlePermModeChange = () => {
     setPermutationMode(!isPermutationMode)
+    setIsPermutationsHidden(false)
   }
 
   const handleCaseModeChange = () => {
