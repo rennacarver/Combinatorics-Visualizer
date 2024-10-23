@@ -13,7 +13,7 @@ const Permutation = ({
 }) => {
   let style = {
     width: `fit-content`,
-    fontSize: `min(${((15 / rValue) * sliderValue) / 100}vw, 70px)`,
+    fontSize: `min(${(50 / rValue) * (sliderValue / 100)}vw, 200px)`,
   }
 
   return (

@@ -24,6 +24,9 @@ function App() {
   //Constants
   const { theme } = useContext(ThemeContext)
 
+  //Max result size default
+  const upperBound = 2500
+
   //Graphemer
   let splitter = new Graphemer()
 
@@ -45,7 +48,7 @@ function App() {
   const [duplicatesDetected, setDuplicatesDetected] = useState(false)
   const [userStringLength, setUserStringLength] = useState(0)
   const [isResultTooLarge, setIsResultTooLarge] = useState(false)
-  const [maxResultSize, setMaxResultSize] = useState(1000)
+  const [maxResultSize, setMaxResultSize] = useState(upperBound)
   const [isPermutationsHidden, setIsPermutationsHidden] = useState(false)
 
   //Handler functions
@@ -83,7 +86,7 @@ function App() {
     setUserStringLength(stringLength)
     setNValue(stringLength)
     setRValue(stringLength)
-    setMaxResultSize(1000)
+    setMaxResultSize(upperBound)
   }
 
   const handleSlotClick = (event) => {
@@ -98,7 +101,8 @@ function App() {
 
   const handleIncreaseResult = () => {
     setResultText('Loading...')
-    setMaxResultSize(permCount + 1)
+    if (isPermutationsHidden) setMaxResultSize(combCount + 1)
+    else setMaxResultSize(permCount + 1)
   }
 
   const handleSliderChange = (event) => {
@@ -158,7 +162,9 @@ function App() {
     //Generate an array of subsets
     let subsets = findSubsets(graphemeArray, rValue)
 
-    //Generate list of permutations of combinations
+    //Generate list of permutations or combinations
+
+    //if permutations is greater than upper bound
     if (tempPermCount < upperBound && !isPermutationsHidden) {
       let subsetPermutations = []
       subsets.map((subset) =>
@@ -175,6 +181,22 @@ function App() {
       setPermutations(subsetPermutations)
       if (subsets.length === 0) setResultText('No result')
       setIsResultTooLarge(false)
+    } else if (
+      tempPermCount > upperBound &&
+      tempCombCount < upperBound &&
+      isPermutationsHidden
+    ) {
+      let subsetPermutations = []
+      subsets.map((subset) =>
+        subsetPermutations.push(...formatPermutations(subset))
+      )
+      setPermutations(subsetPermutations)
+      if (subsets.length === 0) setResultText('No result')
+      setIsResultTooLarge(false)
+    } else if (tempCombCount > upperBound) {
+      setPermutations([])
+      setResultText('Large result')
+      setIsResultTooLarge(true)
     } else if (tempPermCount > upperBound && !isPermutationMode) {
       let subsetPermutations = []
       subsets.map((subset) =>
@@ -335,6 +357,8 @@ function App() {
               <ShowMaxResults
                 handleIncreaseResult={handleIncreaseResult}
                 permCount={permCount}
+                isPermutationsHidden={isPermutationsHidden}
+                combCount={combCount}
               ></ShowMaxResults>
             ) : (
               ''
