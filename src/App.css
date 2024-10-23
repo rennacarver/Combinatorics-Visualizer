@@ -51,19 +51,6 @@
   color: var(--text-primary);
 }
 
-/* @media (prefers-color-scheme: dark) {
-    :root {
-      color: white;
-      background-color: var(--dark-bg);
-    }
-  } */
-
-/*Debug Code*/
-/* .debug-border {
-  border: 2px solid red;
-  white-space: nowrap;
-} */
-
 /* HEADER */
 h1 {
   font-size: 3vw;
@@ -90,9 +77,6 @@ img {
 form {
   display: inline;
 }
-
-/*Remove Arrows from Number Field Input*/
-/* Chrome, Safari, Edge, Opera */
 
 input {
   background-color: var(--bg-secondary);
@@ -235,7 +219,6 @@ table {
 td {
   font-size: 2.25vw;
   text-align: center;
-  /* vertical-align: center; */
 }
 
 /*Result Text*/
@@ -248,7 +231,7 @@ td {
 p.see-all-results {
   cursor: pointer;
   color: var(--warning-red);
-  font-size: calc(5px+0.2vw);
+  font-size: min(2vw, 20px);
   display: block;
   margin: 0 auto;
 }
@@ -289,10 +272,6 @@ table.slot-table {
   opacity: 0.15;
 }
 
-/* Permutation Unit */
-.permutation-unit {
-}
-
 svg {
   width: calc(15px + 0.75vw);
   height: auto;
@@ -325,16 +304,15 @@ svg {
 
 /* Mobile */
 @media screen and (max-width: 600px) {
-  /* .top-padding {
-    padding: 0px;
-  } */
   .modes-div {
-    margin-top: 25px;
+    margin-top: 40px;
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
   }
+}
 
+@media screen and (max-width: 1000px) {
   td.slot-letter {
     font-size: min(1.5vw, 30px);
   }
