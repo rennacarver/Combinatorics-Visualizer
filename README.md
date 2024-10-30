@@ -24,3 +24,9 @@
 ## Future Enhancements
 
 - Allow users to query the permutations list (e.g. show all permutations containing a grapheme)
+- Allow sorting of results (numerically & alphabetically)
+
+## Fixes
+
+- CSS needs refactoring (use intrinsic design patterns)
+- React needs refactoring (break App.jsx into smaller components)
